@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Level;
 
 class LevelsController extends Controller
 {
@@ -14,7 +15,8 @@ class LevelsController extends Controller
      */
     public function index()
     {
-        //
+        $level = Level::all();
+        return view('Admin.Level.view',compact('level'));
     }
 
     /**
@@ -24,7 +26,7 @@ class LevelsController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.Level.add');
     }
 
     /**
@@ -35,7 +37,14 @@ class LevelsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $request->validate([           
+            'levelname'=>'required|unique:levels',                      
+            'description'=>'required',            
+        ]);
+
+        $data = $request->all();            
+        $level = Level::create($data);        
+        return redirect()->route('level.index')->with('success', 'Level added sucessfully');
     }
 
     /**
@@ -57,7 +66,8 @@ class LevelsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $level = Level::findorfail($id);
+        return view('Admin.Level.edit', compact('level'));
     }
 
     /**
@@ -69,7 +79,20 @@ class LevelsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $level = Level::findorfail($id);
+        $request->validate([          
+            'levelname'=>'required',                        
+            'description'=>'required',            
+        ]);       
+        $level->levelname = $request->levelname;
+        $level->description = $request->description;
+        $update = $level->save();
+        // dd($update);
+        if ($update) {
+            return redirect()->route('level.index')->with('success', 'Level updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating.');
+        }
     }
 
     /**
@@ -80,6 +103,8 @@ class LevelsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $level = Level::find($id);
+        $level->delete();
+        return redirect()->route('level.index')->with('success', 'Deleted Successfully');
     }
 }

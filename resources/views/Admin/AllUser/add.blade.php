@@ -16,19 +16,42 @@
         <div class="card-body p-0 border-0 shadow-lg">
             <!-- Nested Row within Card Body -->
              
-            <form class="user"> 
+            <form class="user" method="post" action="{{route('user.store')}}" enctype="multipart/form-data"> 
+             @csrf
             <div class="row">              
-                <div class="col-lg-6">
-                    <div class="p-2">                               
-                            <div class="form-group row">
-                                    <label class="control-label col-md-3">User Name
+                <div class="col-md-12">
+                    <div class="p-4">    
+                    <div class="form-group row">
+                                    <label class="control-label col-md-2">Email
                                         <span class="required text-danger"> * </span>
                                     </label>
-                                    <div class="col-md-9">
-                                        <input type="text" name="emp_id" required placeholder="Enter User Name" id="exampleInputEmail"
-                                            class="form-control   @error('emp_id') is-invalid @enderror"
-                                            value="{{old('emp_id','')}}" />
-                                        @error('emp_id')
+                                    <div class="col-md-6">
+                                        <select class="form-control  @error('email') is-invalid @enderror"
+                                            name="email" value="{{old('username','')}}">
+                                            <option value="{{old('username','')}}" disabled selected>-----Select Email-----</option>
+                                           @foreach($employee as $employees)
+                                            <option value="{{$employees->email}}">{{$employees->email}}</option>
+                                           @endforeach
+                                            @foreach($customer as $customers)
+                                            <option value="{{$customers->email}}">{{$customers->email}}</option>
+                                           @endforeach
+                                        </select>
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{$message}}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>                                        
+                            <div class="form-group row">
+                                    <label class="control-label col-md-2">User Name
+                                        <span class="required text-danger"> * </span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="text" name="username" required placeholder="Enter User Name" id="exampleInputEmail"
+                                            class="form-control   @error('username') is-invalid @enderror"
+                                            value="{{old('username','')}}" />
+                                        @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{$message}}</strong>
                                         </span>
@@ -36,18 +59,18 @@
                                     </div>
                             </div>
                              <div class="form-group row">
-                                    <label class="control-label col-md-3">User Role
+                                    <label class="control-label col-md-2">User Role
                                         <span class="required text-danger"> * </span>
                                     </label>
-                                    <div class="col-md-9">
-                                        <select class="form-control  @error('role_id') is-invalid @enderror"
-                                            name="role_id">
-                                            <option value="" disabled selected>Select Role</option>
-                                           
-                                            <option value="">1111</option>
-                                           
+                                    <div class="col-md-6">
+                                        <select class="form-control  @error('role') is-invalid @enderror"
+                                            name="role">
+                                            <option value="" disabled selected>-----Select Role-----</option>
+                                           @foreach($role as $roles)
+                                            <option value="{{$roles->id}}">{{$roles->name}}</option>
+                                           @endforeach
                                         </select>
-                                        @error('role_id')
+                                        @error('role')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{$message}}</strong>
                                         </span>
@@ -55,19 +78,16 @@
                                     </div>
                                 </div>                                                       
                         
-                    </div>
-                </div>                           
-                <div class="col-lg-6">
-                    <div class="p-2">                        
+                                         
                            <div class="form-group row">
-                                    <label class="control-label col-md-3">Password
+                                    <label class="control-label col-md-2">Password
                                         <span class="required text-danger"> * </span>
                                     </label>
-                                    <div class="col-md-9">
-                                        <input type="text" name="emp_id" required placeholder="Enter Password" id="exampleInputEmail"
-                                            class="form-control  @error('emp_id') is-invalid @enderror"
-                                            value="{{old('emp_id','')}}" />
-                                        @error('emp_id')
+                                    <div class="col-md-6">
+                                        <input type="password" name="password" required placeholder="Enter Password" id="exampleInputEmail"
+                                            class="form-control  @error('password') is-invalid @enderror"
+                                            value="{{old('password','')}}" />
+                                        @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{$message}}</strong>
                                         </span>
@@ -75,20 +95,38 @@
                                     </div>
                             </div>         
                             <div class="form-group row">
-                                    <label class="control-label col-md-3">Confirm Password
+                                    <label class="control-label col-md-2">Confirm Password
                                         <span class="required text-danger"> * </span>
                                     </label>
-                                    <div class="col-md-9">
-                                        <input type="text" name="emp_id" required placeholder="Re-Enter Password" id="exampleInputEmail"
-                                            class="form-control  @error('emp_id') is-invalid @enderror"
-                                            value="{{old('emp_id','')}}" />
-                                        @error('emp_id')
+                                    <div class="col-md-6">
+                                        <input type="password" name="confirm_password" required placeholder="Re-Enter Password" id="exampleInputEmail"
+                                            class="form-control  @error('confirm_password') is-invalid @enderror"
+                                            value="{{old('confirm_password','')}}" />
+                                        @error('confirm_password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{$message}}</strong>
                                         </span>
                                         @enderror
                                     </div>
-                            </div>                                               
+                            </div>  
+                             <div class="form-group row">
+                                    <label class="control-label col-md-2">Status
+                                        <span class="required text-danger"> * </span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <select class="form-control  @error('status') is-invalid @enderror"
+                                            name="status">
+                                            <option value="1" selected>Active</option>                                          
+                                            <option value="0">Inactive</option>
+                                          
+                                        </select>
+                                        @error('status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{$message}}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>                                                   
                         
                     </div>
                 </div>
