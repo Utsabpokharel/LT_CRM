@@ -30,68 +30,62 @@
                                     <thead class="text-center">
                                         <tr>
                                             <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Role</th>
+                                            <th>Status</th>                                            
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tfoot class="text-center">
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
+                                           <th>Id</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+                                            <th>Role</th>
+                                            <th>Status</th>                                            
                                             <th>Actions</th>
                                         </tr>
                                     </tfoot>
+                                    @foreach($user as $users)
                                     <tbody class="text-center">
                                         <tr>
-                                            <th>11</th>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
+                                            <th>{{$loop->index+1}}</th>
+                                            <td>{{$users->email}}</td>
+                                            <td>{{$users->username}}</td>
+                                            <td>{{$users->roles['name']}}</td>
+                                             @if($users->status==1)
                                             <td>
-
-                                        <form action="" method="GET" style="display: inline-block">
+                                              <span class="btn btn-success">Active</span>  
+                                            </td>
+                                            @else
+                                            <td>
+                                              <span class="btn btn-danger">Inactive</span>  
+                                            </td>
+                                            @endif
+                                                                                       
+                                            <td>
+                                             @if($users->email == 'super@admin.com')
+                                             <button class="btn btn-success btn-sm" type="submit"><span
+                                                            class="fa fa-eye"></span></button>  
+                                             @else
+                                        <form action="{{route('user.edit',$users->id)}}" method="GET" style="display: inline-block">
                                             {{csrf_field()}}
                                             {{method_field('PUT')}}
                                             <button class="btn btn-primary btn-sm" type="submit"><span
                                                     class="fa fa-edit"></span></button>
                                         </form>                                        
-                                        <form action="" method="post" style="display: inline-block">
+                                        <form action="{{ route('user.destroy', $users->id)}}" method="post" style="display: inline-block">
                                             {{csrf_field()}}
                                             {{method_field('DELETE')}}
                                             <button class="btn btn-danger btn-sm" type="submit"><span
                                                     class="fa fa-trash"></span></button>
                                         </form>
+                                        @endif
                                     </td>
                                         </tr>
-                                        <tr>
-                                            <th>21</th>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>                                        
-                                        <tr>
-                                            <th>12</th>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>21</td>
-                                            <td>2011/12/12</td>
-                                            <td>$106,450</td>
-                                        </tr>           
                                     </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>

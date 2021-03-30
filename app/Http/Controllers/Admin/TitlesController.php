@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Title;
 
 class TitlesController extends Controller
 {
@@ -14,7 +15,8 @@ class TitlesController extends Controller
      */
     public function index()
     {
-        //
+        $title = Title::all();
+        return view('Admin.Title.view',compact('title'));
     }
 
     /**
@@ -24,7 +26,7 @@ class TitlesController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.Title.add');
     }
 
     /**
@@ -35,7 +37,14 @@ class TitlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([           
+            'titlename'=>'required|unique:titles',                      
+            'description'=>'required',            
+        ]);
+
+        $data = $request->all();            
+        $title = Title::create($data);        
+        return redirect()->route('title.index')->with('success', 'Title added sucessfully');
     }
 
     /**
@@ -57,7 +66,8 @@ class TitlesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = Title::findorfail($id);
+        return view('Admin.Title.edit', compact('title'));
     }
 
     /**
@@ -69,7 +79,20 @@ class TitlesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $title = Title::findorfail($id);
+        $request->validate([          
+            'titlename'=>'required',                        
+            'description'=>'required',            
+        ]);       
+        $title->titlename = $request->titlename;
+        $title->description = $request->description;
+        $update = $title->save();
+        // dd($update);
+        if ($update) {
+            return redirect()->route('title.index')->with('success', 'Title updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating.');
+        }
     }
 
     /**
@@ -80,6 +103,8 @@ class TitlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $title = Title::find($id);
+        $title->delete();
+        return redirect()->route('title.index')->with('success', 'Deleted Successfully');
     }
 }

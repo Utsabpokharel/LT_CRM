@@ -62,7 +62,7 @@
     <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
     <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
-
+    @include('sweetalert::alert')
 </body>
 
 </html>

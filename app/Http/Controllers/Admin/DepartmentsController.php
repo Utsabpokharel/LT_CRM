@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Department;
 
 class DepartmentsController extends Controller
 {
@@ -14,7 +15,8 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        //
+        $department = Department::all();
+        return view('Admin.Department.view',compact('department'));
     }
 
     /**
@@ -24,7 +26,7 @@ class DepartmentsController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.Department.add');
     }
 
     /**
@@ -35,7 +37,16 @@ class DepartmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $request->validate([
+            'code' =>'required',
+            'name'=>'required|unique:departments',
+            'shortname' => 'required|max:15',            
+            'description'=>'required',            
+        ]);
+
+        $data = $request->all();            
+        $department = Department::create($data);        
+        return redirect()->route('department.index')->with('success', 'Department added sucessfully');
     }
 
     /**
@@ -57,7 +68,8 @@ class DepartmentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $department = Department::findorfail($id);
+        return view('Admin.Department.edit', compact('department'));
     }
 
     /**
@@ -69,7 +81,24 @@ class DepartmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $department = Department::findorfail($id);
+        $request->validate([
+            'code' =>'required',
+            'name'=>'required',
+            'shortname' => 'required|max:15',            
+            'description'=>'required',            
+        ]);
+        $department->code = $request->code;
+        $department->name = $request->name;
+        $department->shortname = $request->shortname;
+        $department->description = $request->description;
+        $update = $department->save();
+        // dd($update);
+        if ($update) {
+            return redirect()->route('department.index')->with('success', 'Department updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating.');
+        }
     }
 
     /**
@@ -80,6 +109,8 @@ class DepartmentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $department = Department::find($id);
+        $department->delete();
+        return redirect()->route('department.index')->with('success', 'Deleted Successfully');
     }
 }

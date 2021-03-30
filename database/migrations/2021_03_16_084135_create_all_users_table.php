@@ -15,6 +15,11 @@ class CreateAllUsersTable extends Migration
     {
         Schema::create('all_users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('email')->unique();
+            $table->string('username');            
+            $table->integer('role');
+            $table->string('password');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

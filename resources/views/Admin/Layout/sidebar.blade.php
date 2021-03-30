@@ -52,8 +52,8 @@
                 <div id="collapseEmployee" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Employee Components:</h6>
-                        <a class="collapse-item" href="">All Employee</a>
-                        <a class="collapse-item" href="">Add Employee</a>
+                        <a class="collapse-item" href="{{route('employee.index')}}">All Employee</a>
+                        <a class="collapse-item" href="{{route('employee.create')}}">Add Employee</a>
                     </div>
                 </div>
             </li>
@@ -66,8 +66,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Customer Components:</h6>
-                        <a class="collapse-item" href="">All Customer</a>
-                        <a class="collapse-item" href="">Add Customer</a>
+                        <a class="collapse-item" href="{{route('customer.index')}}">All Customer</a>
+                        <a class="collapse-item" href="{{route('customer.create')}}">Add Customer</a>
                     </div>
                 </div>
             </li>
@@ -90,7 +90,7 @@
     <div id="collapseRoles" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Role Components:</h6>
-            <a class="collapse-item" href="">All Role</a>
+            <a class="collapse-item" href="{{route('role.index')}}">All Role</a>
             <a class="collapse-item" href="">Add Role</a>
         </div>
     </div>
@@ -104,8 +104,8 @@
     <div id="collapseDepartment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Department Components:</h6>
-            <a class="collapse-item" href="">All Department</a>
-            <a class="collapse-item" href="">Add Department</a>
+            <a class="collapse-item" href="{{route('department.index')}}">All Department</a>
+            <a class="collapse-item" href="{{route('department.create')}}">Add Department</a>
         </div>
     </div>
 </li>
@@ -118,8 +118,8 @@
     <div id="collapseDesignation" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Designation Components:</h6>
-            <a class="collapse-item" href="">Title</a>
-            <a class="collapse-item" href="">Level</a>
+            <a class="collapse-item" href="{{route('title.index')}}">Title</a>
+            <a class="collapse-item" href="{{route('level.index')}}">Level</a>
         </div>
     </div>
 </li>
@@ -143,8 +143,8 @@
     <div id="collapseEnquiryCategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Category Components:</h6>
-            <a class="collapse-item" href="">All Category</a>
-            <a class="collapse-item" href="">Add Category</a>
+            <a class="collapse-item" href="{{route('enquirycategory.index')}}">All Category</a>
+            <a class="collapse-item" href="{{route('enquirycategory.create')}}">Add Category</a>
         </div>
     </div>
 </li>
@@ -157,8 +157,8 @@
     <div id="collapseEnquirySource" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Source Components:</h6>
-            <a class="collapse-item" href="">All Source</a>
-            <a class="collapse-item" href="">Add Source</a>
+            <a class="collapse-item" href="{{route('enquirysource.index')}}">All Source</a>
+            <a class="collapse-item" href="{{route('enquirysource.create')}}">Add Source</a>
         </div>
     </div>
 </li>
@@ -171,8 +171,8 @@
     <div id="collapseEnquiry" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Enquiry Components:</h6>
-            <a class="collapse-item" href="">All Enquiry</a>
-            <a class="collapse-item" href="">Add Enquiry</a>
+            <a class="collapse-item" href="{{route('enquiry.index')}}">All Enquiry</a>
+            <a class="collapse-item" href="{{route('enquiry.create')}}">Add Enquiry</a>
         </div>
     </div>
 </li>
@@ -185,8 +185,8 @@
     <div id="collapseEnquiryResponse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Response Components:</h6>
-            <a class="collapse-item" href="">All Response</a>
-            <a class="collapse-item" href="">Add Response</a>
+            <a class="collapse-item" href="{{route('enquiryresponse.index')}}">All Response</a>
+            <a class="collapse-item" href="{{route('enquiryresponse.create')}}">Add Response</a>
         </div>
     </div>
 </li>
@@ -209,10 +209,10 @@
     <div id="collapseTask" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Tasks Components:</h6>
-            <a class="collapse-item" href="">All Tasks</a>
-            <a class="collapse-item" href="">Add Tasks</a>
-            <a class="collapse-item" href="">Pending Tasks</a>
-            <a class="collapse-item" href="">Completed Tasks</a>
+            <a class="collapse-item" href="{{route('todo.index')}}">All Tasks</a>
+            <a class="collapse-item" href="{{route('todo.create')}}">Add Tasks</a>
+            <a class="collapse-item" href="#">Pending Tasks</a>
+            <a class="collapse-item" href="#">Completed Tasks</a>
         </div>
     </div>
 </li>        
@@ -247,8 +247,8 @@
     <div id="collapseLeaveTypes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">LeaveType Components:</h6>
-            <a class="collapse-item" href="">All LeaveType</a>
-            <a class="collapse-item" href="">Add LeaveType</a>
+            <a class="collapse-item" href="{{route('leaveType.index')}}">All LeaveType</a>
+            <a class="collapse-item" href="{{route('leaveType.create')}}">Add LeaveType</a>
         </div>
     </div>
 </li>
@@ -262,7 +262,7 @@
     <div id="collapseLeave" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Leaves Components:</h6>
-            <a class="collapse-item" href="">All Leaves</a>            
+            <a class="collapse-item" href="{{route('leave.index')}}">All Leaves</a>            
             <a class="collapse-item" href="">Pending Leaves</a>
             <a class="collapse-item" href="">Approved Leaves</a>
             <a class="collapse-item" href="">Rejected Leaves</a>
@@ -278,7 +278,7 @@
     <div id="collapseMyLeave" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Leaves Components:</h6>
-            <a class="collapse-item" href="">Apply Leave</a>
+            <a class="collapse-item" href="{{route('leave.create')}}">Apply Leave</a>
             <a class="collapse-item" href="">Leave History</a>                   
         </div>
     </div>
@@ -301,8 +301,8 @@
     <div id="collapseIncome" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Income Components:</h6>
-            <a class="collapse-item" href="">Income Category</a>
-            <a class="collapse-item" href="">Incomes</a>
+            <a class="collapse-item" href="{{route('incomecategory.index')}}">Income Category</a>
+            <a class="collapse-item" href="{{route('income.index')}}">Incomes</a>
         </div>
     </div>
 </li>
@@ -315,8 +315,8 @@
     <div id="collapseExpenses" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Expenses Components:</h6>
-            <a class="collapse-item" href="">Expenses Category</a>
-            <a class="collapse-item" href="">Expenses</a>
+            <a class="collapse-item" href="{{route('expensecategory.index')}}">Expenses Category</a>
+            <a class="collapse-item" href="{{route('expense.index')}}">Expenses</a>
         </div>
     </div>
 </li>
@@ -329,8 +329,8 @@
     <div id="collapseBank" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Bank Components:</h6>
-            <a class="collapse-item" href="">All Bank Accounts</a>
-            <a class="collapse-item" href="">Add Bank Accounts</a>
+            <a class="collapse-item" href="#">All Bank Accounts</a>
+            <a class="collapse-item" href="#">Add Bank Accounts</a>
         </div>
     </div>
 </li>
@@ -343,8 +343,8 @@
     <div id="collapsePayments" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Payments Components:</h6>
-            <a class="collapse-item" href="">Cash In</a>
-            <a class="collapse-item" href="">Cash Out</a>
+            <a class="collapse-item" href="{{route('cashIn.index')}}">Cash In</a>
+            <a class="collapse-item" href="{{route('cashOut.index')}}">Cash Out</a>
         </div>
     </div>
 </li>
@@ -357,7 +357,7 @@
     <div id="collapseInvoice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Invoice Components:</h6>           
-            <a class="collapse-item" href="">Invoices</a>
+            <a class="collapse-item" href="{{route('invoice.index')}}">Invoices</a>
         </div>
     </div>
 </li>
@@ -380,10 +380,10 @@
     <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Settings Components:</h6>
-            <a class="collapse-item" href="">General Settings</a>
-            <a class="collapse-item" href="">Email Settings</a>
-            <a class="collapse-item" href="">Change Password</a>
-            <a class="collapse-item" href="">Payment Settings</a>
+            <a class="collapse-item" href="{{route('general')}}">General Settings</a>
+            <a class="collapse-item" href="{{route('email')}}">Email Settings</a>
+            <a class="collapse-item" href="{{route('password')}}">Change Password</a>
+            <a class="collapse-item" href="{{route('payment')}}">Payment Settings</a>
         </div>
     </div>
 </li>
