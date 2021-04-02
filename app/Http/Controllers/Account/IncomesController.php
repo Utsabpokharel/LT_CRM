@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account\Income;
+use App\Models\Account\IncomeCategory;
+use App\Models\Admin\Employee;
 use Illuminate\Http\Request;
 
 class IncomesController extends Controller
@@ -14,7 +17,8 @@ class IncomesController extends Controller
      */
     public function index()
     {
-        //
+        $income = Income::all();
+        return view('Account.Income.view',compact('income'));
     }
 
     /**
@@ -24,7 +28,9 @@ class IncomesController extends Controller
      */
     public function create()
     {
-        //
+        $incomecategory=IncomeCategory::all();
+        $employee = Employee::all();
+       return view('Account.Income.add',compact('incomecategory','employee'));
     }
 
     /**
@@ -35,7 +41,18 @@ class IncomesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'incomecategory' =>'required',
+            'particular'=>'required',
+            'amount'=>'required',
+            'date' =>'required',
+            'mode'=>'required',
+            'paid_by'=>'required',
+            'received_by'=>'required',
+        ]);
+        $data = $request->all();
+        $income= Income::create($data);
+        return redirect()->route('income.index')->with('success', 'Income  added sucessfully');
     }
 
     /**
@@ -57,7 +74,10 @@ class IncomesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $income = Income::findOrFail($id);
+        $incomecategory=IncomeCategory::all();
+        $employee = Employee::all();
+        return view('Account.Income.edit',compact('incomecategory','employee','income'));
     }
 
     /**
@@ -69,7 +89,32 @@ class IncomesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $income = Income::findOrFail($id);
+        $request->validate([
+            'incomecategory' =>'required',
+            'particular'=>'required',
+            'amount'=>'required',
+            'date' =>'required',
+            'mode'=>'required',
+            'paid_by'=>'required',
+            'received_by'=>'required',
+        ]);
+        $income->incomecategory = $request->incomecategory;
+        $income->particular = $request->particular;
+        $income->amount = $request->amount;
+        $income->date = $request->date;
+        $income->mode = $request->mode;
+        $income->paid_by = $request->paid_by;
+        $income->received_by = $request->received_by;
+        $income->remarks = $request->remarks;
+        $income->entry_by = $request->entry_by;
+        $update = $income->save();
+        // dd($update);
+        if ($update) {
+            return redirect()->route('income.index')->with('success', 'Income  Updated sucessfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating.');
+        }
     }
 
     /**
@@ -80,6 +125,8 @@ class IncomesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $income = Income::find($id);
+        $income->delete();
+        return redirect()->route('income.index')->with('success', 'Deleted Successfully');
     }
 }
