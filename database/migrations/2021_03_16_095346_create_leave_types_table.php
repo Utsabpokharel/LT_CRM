@@ -15,6 +15,9 @@ class CreateLeaveTypesTable extends Migration
     {
         Schema::create('leave_types', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('leavetype');
+            $table->string('leavedays');
+            $table->longText('description');
             $table->timestamps();
         });
     }

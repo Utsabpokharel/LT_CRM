@@ -58,32 +58,31 @@ class EmployeesController extends Controller
             'level'=>'required',
             'department'=>'required',
         ]);
-         if ($request->hasFile('photo')) {
-            $image = $request->file('photo');
-            $name = "Employee-" . time() . '.' . $image->getClientOriginalExtension();
-            $image->move('Uploads/Employee/Image/', $name); 
-            $employee->photo = $name;           
-        }   
-        
         $employee = new Employee([
             'employee_id' => $request->employee_id,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
-            'email' => $request->email,            
+            'email' => $request->email,
             'gender' => $request->gender,
             'department' => $request->department,
             'title' => $request->title,
             'level' => $request->level,
             'pan' => $request->pan,
-            'contact_number' => $request->contact_number,            
-        ]);           
-        $data = $employee->save();   
+            'contact_number' => $request->contact_number,
+        ]);
+         if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $name = "Employee-" . time() . '.' . $image->getClientOriginalExtension();
+            $image->move('Uploads/Employee/Image/', $name);
+            $employee->photo = $name;
+        }
+        $data = $employee->save();
         if ($data) {
            return redirect()->route('employee.index')->with('success', 'Employee added successfully');
         } else {
             return redirect()->back()->with('error', 'Oops!!! some error occurred');
         }
-        
+
     }
 
     /**
@@ -134,10 +133,10 @@ class EmployeesController extends Controller
             'title'=>'required',
             'level'=>'required',
             'department'=>'required',
-        ]);    
+        ]);
         $employee->employee_id = $request->employee_id;
         $employee->firstname = $request->firstname;
-        $employee->lastname = $request->lastname;       
+        $employee->lastname = $request->lastname;
         $employee->email = $request->email;
         $employee->gender = $request->gender;
         $employee->photo = $request->photo;
@@ -147,16 +146,16 @@ class EmployeesController extends Controller
         $employee->department = $request->department;
         $employee->contact_number = $request->contact_number;
         if ($request->hasFile('photo')) {
-            // if ($employee->photo != null) {
-            //     unlink(public_path() . '/Uploads/Employee/Image/' . $employee->photo);
-            // }
+            if ($employee->photo != null) {
+                unlink(public_path() . '/Uploads/Employee/Image/' . $employee->photo);
+            }
             $new_img = $request->file('photo');
             $name = "Employee-" . time() . '.' . $new_img->getClientOriginalExtension();
             $new_img->move('Uploads/Employee/Image/', $name);
             $employee->photo = $name;
         } else {
             $employee->photo =  $employee->photo;
-        }        
+        }
         $update = $employee->save();
         // dd($update);
         if ($update) {
@@ -176,6 +175,6 @@ class EmployeesController extends Controller
     {
         $employee = Employee::find($id);
         $employee->delete();
-        return redirect()->route('employee.index')->with('warning', 'Deleted Successfully');
+        return redirect()->route('employee.index')->with('success', 'Deleted Successfully');
     }
 }

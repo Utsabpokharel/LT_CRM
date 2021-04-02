@@ -1,15 +1,15 @@
 @extends('Admin.Layout.master')
-@section('title', 'All Departments')
+@section('title', 'All Leave Types')
 @section('content')
 <div class="page-title-breadcrumb pull-left">
     <ol class="breadcrumb page-breadcrumb ">
         <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="#">Home</a>&nbsp;<i
                 class="fa fa-angle-right"></i>
         </li>
-        <li><a class="parent-item" href="{{route('department.index')}}">Departments</a>&nbsp;<i
+        <li><a class="parent-item" href="{{route('leaveType.index')}}">Leave Types</a>&nbsp;<i
                 class="fa fa-angle-right"></i>
         </li>
-        <li class="active">All Departments</li>
+        <li class="active">All Leave Types</li>
     </ol>
 </div>
 <div class="card-body p-0 border-0 shadow-lg">
@@ -19,10 +19,10 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 row">
             <div class="col-md-6">
-                <h6 class="font-weight-bold text-primary">All Departments</h6>
+                <h6 class="font-weight-bold text-primary">All Leave Types</h6>
             </div>
             <div class="col-md-6">
-                <a class="btn btn-success float-right" href="{{route('department.create')}}">Add +</a>
+                <a class="btn btn-success float-right" href="{{route('leaveType.create')}}">Add +</a>
             </div>
         </div>
         <div class="card-body">
@@ -31,9 +31,8 @@
                     <thead class="text-center">
                         <tr>
                             <th>Id</th>
-                            <th>Department Code</th>
-                            <th>Department Name</th>
-                            <th>Department Short Name</th>
+                            <th>LeaveType</th>
+                            <th>Allocated Days</th>
                             <th>Description</th>
                             <th>Actions</th>
                         </tr>
@@ -41,30 +40,28 @@
                     <tfoot class="text-center">
                         <tr>
                             <th>Id</th>
-                            <th>Department Code</th>
-                            <th>Department Name</th>
-                            <th>Department Short Name</th>
+                            <th>LeaveType</th>
+                            <th>Allocated Days</th>
                             <th>Description</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>
-                    @foreach($department as $depart)
+                    @foreach($type as $type)
                     <tbody class="text-center">
                         <tr>
                             <th>{{$loop->index+1}}</th>
-                            <td>{{$depart->code}}</td>
-                            <td>{{$depart->name}}</td>
-                            <td>{{$depart->shortname}}</td>
-                            <td>{{$depart->description}}</td>
+                            <td>{{$type->leavetype}}</td>
+                            <td>{{$type->leavedays}}</td>
+                            <td>{{$type->description}}</td>
                             <td>
-                                <form action="{{route('department.edit',$depart->id)}}" method="GET"
+                                <form action="{{route('leaveType.edit',$type->id)}}" method="GET"
                                     style="display: inline-block">
                                     {{csrf_field()}}
                                     {{method_field('PUT')}}
                                     <button class="btn btn-primary btn-sm" type="submit"><span
                                             class="fa fa-edit"></span></button>
                                 </form>
-                                <form action="{{route('department.destroy',$depart->id)}}" method="post"
+                                <form action="{{route('leaveType.destroy',$type->id)}}" method="post"
                                     style="display: inline-block">
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
