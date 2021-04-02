@@ -1,6 +1,6 @@
 <?php
 
-/*       
+/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+use Illuminate\Support\Facades\Route;
+
+Route::get('/inde', function () {
+    return view('index');
 });
+ //dashboard
+Route::any('/', 'Admin\DashboardController@index')->name('dashboard');
 Route::group(['prefix'=>'admin','namespace'=>'Admin'] ,function(){
-    //users     
+    //users
     Route::resource('user',AllUsersController::class);
     //employee
     Route::resource('employee',EmployeesController::class);
@@ -30,47 +34,62 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'] ,function(){
     //title
     Route::resource('title',TitlesController::class);
     //roles
-    Route::resource('role',RolesController::class);    
+    Route::resource('role',RolesController::class);
 });
 Route::group(['prefix'=>'admin','namespace'=>'Leaves'] ,function(){
-    //leaves     
+    //leaves
     Route::resource('leave',LeavesController::class);
+    //pending
+    Route::get('/Pending-Leaves', 'LeavesController@pending')->name('pendingLeave');
+    Route::get('/My-Leaves', 'LeavesController@employeeLeave')->name('myLeaves');
+    //approved
+    Route::put('/Leave-Approved/{id}', 'LeavesController@approve')->name('approve');
+    Route::get('/Approved-Leave', 'LeavesController@leaveApproved')->name('leaveApproved');
+    //rejected
+    Route::put('/Leave-Rejected/{id}', 'LeavesController@reject')->name('reject');
+    Route::get('/Rejected-Leave', 'LeavesController@leaveRejected')->name('leaveRejected');
     //leave type
-    Route::resource('leaveType',LeaveTypesController::class);    
+    Route::resource('leaveType',LeaveTypesController::class);
 });
 Route::group(['prefix'=>'admin','namespace'=>'Task'] ,function(){
-    //todos     
-    Route::resource('todo',ToDosController::class);      
+    //todos
+    Route::resource('todo',ToDosController::class);
+    //pending
+    Route::put('/Todo-Pending/{id}', 'ToDosController@pending')->name('pending');
+    Route::get('/Pending-Tasks', 'ToDosController@pendingTask')->name('pendingTask');
+    //complete
+    Route::put('/Todo-Complete/{id}', 'ToDosController@complete')->name('complete');
+    Route::get('/Completed-Tasks', 'ToDosController@completeTask')->name('completedTask');
 });
 Route::group(['prefix'=>'admin','namespace'=>'Enquiry'] ,function(){
-    //enquiry source     
+    //enquiry source
     Route::resource('enquirysource',EnquirySourcesController::class);
     //enquiry category
     Route::resource('enquirycategory',EnquiryCategoryController::class);
-     //enquiry     
+     //enquiry
     Route::resource('enquiry',EnquiryController::class);
     //enquiry response
-    Route::resource('enquiryresponse',EnquiryResponsesController::class);     
+    Route::resource('enquiryresponse',EnquiryResponsesController::class);
 });
 Route::group(['prefix'=>'admin','namespace'=>'Account'] ,function(){
-    //income    
+    //income
     Route::resource('income',IncomesController::class);
     //income category
     Route::resource('incomecategory',IncomesCategoryController::class);
-     //expense    
+     //expense
     Route::resource('expense',ExpensesController::class);
     //expense category
     Route::resource('expensecategory',ExpensesCategoryController::class);
-    //cash in    
+    //cash in
     Route::resource('cashIn',CashInsController::class);
     //cash out
     Route::resource('cashOut',CashOutsController::class);
-     //invoices     
-    Route::resource('invoice',InvoicesController::class);        
+     //invoices
+    Route::resource('invoice',InvoicesController::class);
 });
 Route::group(['prefix'=>'admin','namespace'=>'Setting'] ,function(){
     //general
-    Route::get('general-setting', 'GeneralSettingsController@index')->name('general'); 
+    Route::get('general-setting', 'GeneralSettingsController@index')->name('general');
     //password
     Route::get('change-password', 'PasswordSettingsController@index')->name('password');
     //payment

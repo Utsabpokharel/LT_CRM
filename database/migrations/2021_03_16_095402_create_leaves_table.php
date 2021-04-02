@@ -15,6 +15,17 @@ class CreateLeavesTable extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('employee_id');
+            $table->date('from');
+            $table->date('to');
+            $table->integer('leave_type');
+            $table->longText('leave_reason');
+            $table->date('applied_on');
+            $table->enum('status', ['Pending', '0', '1'])->default('Pending');
+            $table->longText('admin_remarks')->nullable();
+            $table->integer('applied_by');
+            $table->date('checked_on')->nullable();
+            $table->integer('checked_by')->nullable();
             $table->timestamps();
         });
     }

@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class LeaveType extends Model
 {
-    //
+    protected  $guarded=[];
+     public function leaves()
+    {
+        return $this->hasMany('App\Models\Leaves\Leave');
+    }
 }
