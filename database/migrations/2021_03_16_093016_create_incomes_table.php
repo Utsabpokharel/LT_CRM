@@ -15,6 +15,15 @@ class CreateIncomesTable extends Migration
     {
         Schema::create('incomes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('incomecategory');
+            $table->string('particular');
+            $table->double('amount');
+            $table->date('date');
+            $table->string('mode');
+            $table->string('paid_by');
+            $table->string('received_by');
+            $table->integer('entry_by');
+            $table->longText('remarks')->nullable();
             $table->timestamps();
         });
     }
