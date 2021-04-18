@@ -11,13 +11,19 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/inde', function () {
-    return view('index');
+Route::get('/', function () {
+    return view('auth.login');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/login', 'LoginController@login')->name('login');
  //dashboard
-Route::any('/', 'Admin\DashboardController@index')->name('dashboard');
+Route::any('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
 Route::group(['prefix'=>'admin','namespace'=>'Admin'] ,function(){
     //users
     Route::resource('user',AllUsersController::class);
@@ -96,4 +102,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Setting'] ,function(){
     Route::get('payment', 'PaymentSettingsController@index')->name('payment');
     //email
     Route::get('email', 'EmailSettingsController@index')->name('email');
+});
+Route::group(['prefix'=>'admin','namespace'=>'Profile'] ,function(){
+    //income
+    Route::resource('bankaccount',BankAccountsController::class);
 });

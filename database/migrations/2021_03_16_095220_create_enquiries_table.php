@@ -15,6 +15,16 @@ class CreateEnquiriesTable extends Migration
     {
         Schema::create('enquiries', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->enum('is_customer',['Yes','No'])->default('No');
+            $table->integer('customer_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->bigInteger('phone')->nullable();
+            $table->date('date');
+            $table->time('time');
+            $table->integer('category_id');
+            $table->integer('source_id');
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

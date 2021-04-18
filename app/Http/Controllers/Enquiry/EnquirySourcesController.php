@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Enquiry;
 
 use App\Http\Controllers\Controller;
+use App\Models\Enquiry\EnquirySource;
 use Illuminate\Http\Request;
 
 class EnquirySourcesController extends Controller
@@ -14,7 +15,9 @@ class EnquirySourcesController extends Controller
      */
     public function index()
     {
-        //
+        $source = EnquirySource::orderBy('id','desc')->get();
+        // dd($source);
+        return view('Enquiry.EnquirySource.view',compact('source'));
     }
 
     /**
@@ -24,7 +27,7 @@ class EnquirySourcesController extends Controller
      */
     public function create()
     {
-        //
+        return view('Enquiry.EnquirySource.view');
     }
 
     /**
@@ -35,7 +38,13 @@ class EnquirySourcesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'source'=>'required',
+            'description'=>'',
+        ]);
+        $data = $request->all();
+        $source = EnquirySource::create($data);
+        return redirect()->route('enquirysource.index')->with('success', 'New Source added sucessfully');
     }
 
     /**
@@ -57,7 +66,8 @@ class EnquirySourcesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $source = EnquirySource::findOrFail($id);
+        return view('Enquiry.EnquirySource.edit', compact('source'));
     }
 
     /**
@@ -69,7 +79,20 @@ class EnquirySourcesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $source = EnquirySource::findOrFail($id);
+        $request->validate([
+            'source'=>'required',
+            'description'=>'',
+        ]);
+        $source->source = $request->source;
+        $source->description = $request->description;
+        $update = $source->save();
+        // dd($update);
+        if ($update) {
+            return redirect()->route('enquirysource.index')->with('success', 'Enquiry source Details updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating.');
+        }
     }
 
     /**
@@ -80,6 +103,8 @@ class EnquirySourcesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $source = EnquirySource::find($id);
+        $source->delete();
+        return redirect()->route('enquirysource.index')->with('success', 'Source Deleted Successfully');
     }
 }

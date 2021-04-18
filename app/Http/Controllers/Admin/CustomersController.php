@@ -27,7 +27,7 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        
+
         return view('Admin.Customer.add');
     }
 
@@ -48,26 +48,27 @@ class CustomersController extends Controller
             'customer_type'=>'required',
             'contact_number'=>'required'
         ]);
-         if ($request->hasFile('photo')) {
-            $image = $request->file('photo');
-            $name = "Customer-" . time() . '.' . $image->getClientOriginalExtension();
-            $image->move('Uploads/Customer/Image/', $name);  
-            $customer->photo = $name;          
-        }   
-        $customer = new Customer([            
+
+        $customer = new Customer([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
-            'email' => $request->email,            
+            'email' => $request->email,
             'gender' => $request->gender,
-            'customer_type' => $request->customer_type,            
-            'contact_number' => $request->contact_number,            
-        ]);           
-        $data = $customer->save();   
+            'customer_type' => $request->customer_type,
+            'contact_number' => $request->contact_number,
+        ]);
+          if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $name = "Customer-" . time() . '.' . $image->getClientOriginalExtension();
+            $image->move('Uploads/Customer/Image/', $name);
+            $customer->photo = $name;
+        }
+        $data = $customer->save();
         if ($data) {
            return redirect()->route('customer.index')->with('success', 'Customer added sucessfully');
         } else {
-            return redirect()->back()->with('error', 'Oops!!! some error occurred');        }     
-       
+            return redirect()->back()->with('error', 'Oops!!! some error occurred');        }
+
     }
 
     /**
@@ -88,7 +89,7 @@ class CustomersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {        
+    {
         $customer = Customer::findorfail($id);
         return view('Admin.Customer.edit', compact('customer'));
     }
@@ -107,12 +108,12 @@ class CustomersController extends Controller
             'firstname'=>'required',
             'lastname'=>'required',
             'email'=>'required',
-            'gender'=>'required',            
+            'gender'=>'required',
             'customer_type'=>'required',
             'contact_number'=>'required'
-        ]);    
+        ]);
         $customer->firstname = $request->firstname;
-        $customer->lastname = $request->lastname;       
+        $customer->lastname = $request->lastname;
         $customer->email = $request->email;
         $customer->gender = $request->gender;
         $customer->customer_type = $request->customer_type;

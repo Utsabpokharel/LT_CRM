@@ -8,7 +8,7 @@ use App\Models\Admin\AllUser;
 use App\Models\Admin\Role;
 use App\Models\Admin\Customer;
 use App\Models\Admin\Employee;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class AllUsersController extends Controller
 {
@@ -57,8 +57,8 @@ class AllUsersController extends Controller
         $data = $request->except('confirm_password');
 
         $password = Hash::make($request->password);
-        $data['password'] = $password;        
-        $user = AllUser::create($data);        
+        $data['password'] = $password;
+        $user = AllUser::create($data);
         return redirect()->route('user.index')->with('success', 'User added sucessfully');
     }
 
@@ -81,7 +81,7 @@ class AllUsersController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::all();        
+        $role = Role::all();
         $customer= Customer::all();
         $employee = Employee::all();
         $user = AllUser::findorfail($id);
@@ -100,11 +100,11 @@ class AllUsersController extends Controller
         $user = AllUser::find($id);
        $request->validate([
             'username'=>'required',
-            'email'=>'required',            
+            'email'=>'required',
             'status'=>'required',
             'role'=>'required'
-        ]);       
-        $user->username = $request->username;       
+        ]);
+        $user->username = $request->username;
         $user->email = $request->email;
         $user->role = $request->role;
         $user->status = $request->status;
@@ -127,6 +127,6 @@ class AllUsersController extends Controller
     {
         $user = AllUser::find($id);
         $user->delete();
-        return redirect()->route('user.index')->with('warning', 'Deleted Successfully');
+        return redirect()->route('user.index')->with('success', 'Deleted Successfully');
     }
 }

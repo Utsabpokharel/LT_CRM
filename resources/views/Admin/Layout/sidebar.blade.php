@@ -330,8 +330,8 @@
         <div id="collapseBank" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Bank Components:</h6>
-                <a class="collapse-item" href="#">All Bank Accounts</a>
-                <a class="collapse-item" href="#">Add Bank Accounts</a>
+                <a class="collapse-item" href="{{route('bankaccount.index')}}">All Bank Accounts</a>
+                <a class="collapse-item" href="{{route('bankaccount.create')}}">Add Bank Accounts</a>
             </div>
         </div>
     </li>

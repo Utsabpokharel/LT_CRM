@@ -21,6 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+      public const HOME = '/roles';
     public function boot()
     {
         //
