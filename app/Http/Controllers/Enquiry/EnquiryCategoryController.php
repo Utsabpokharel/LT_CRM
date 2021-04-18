@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Enquiry;
 
 use App\Http\Controllers\Controller;
+use App\Models\Enquiry\EnquiryCategory;
 use Illuminate\Http\Request;
 
 class EnquiryCategoryController extends Controller
@@ -14,7 +15,8 @@ class EnquiryCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = EnquiryCategory::orderBy('id', 'desc')->get();
+        return view('Enquiry.EnquiryCategory.view',compact('category'));
     }
 
     /**
@@ -24,7 +26,7 @@ class EnquiryCategoryController extends Controller
      */
     public function create()
     {
-        //
+       return view('Enquiry.EnquiryCategory.add');
     }
 
     /**
@@ -35,7 +37,13 @@ class EnquiryCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'categoryname'=>'required',
+            'description'=>'',
+        ]);
+        $data = $request->all();
+        $category = EnquiryCategory::create($data);
+        return redirect()->route('enquirycategory.index')->with('success', 'New Category added sucessfully');
     }
 
     /**
@@ -57,7 +65,8 @@ class EnquiryCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = EnquiryCategory::findOrFail($id);
+        return view('Enquiry.EnquiryCategory.edit', compact('category'));
     }
 
     /**
@@ -69,7 +78,20 @@ class EnquiryCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = EnquiryCategory::findOrFail($id);
+        $request->validate([
+            'categoryname'=>'required',
+            'description'=>'',
+        ]);
+        $category->categoryname = $request->categoryname;
+        $category->description = $request->description;
+        $update = $category->save();
+        // dd($update);
+        if ($update) {
+            return redirect()->route('enquirycategory.index')->with('success', 'Enquiry Category Details updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating.');
+        }
     }
 
     /**
@@ -80,6 +102,8 @@ class EnquiryCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = EnquiryCategory::find($id);
+        $category->delete();
+        return redirect()->route('enquirycategory.index')->with('success', 'Deleted Successfully');
     }
 }
