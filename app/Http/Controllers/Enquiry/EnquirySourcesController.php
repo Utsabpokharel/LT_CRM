@@ -16,7 +16,7 @@ class EnquirySourcesController extends Controller
     public function index()
     {
         $source = EnquirySource::orderBy('id','desc')->get();
-        // dd($source);
+        //  dd($source);
         return view('Enquiry.EnquirySource.view',compact('source'));
     }
 
@@ -27,7 +27,7 @@ class EnquirySourcesController extends Controller
      */
     public function create()
     {
-        return view('Enquiry.EnquirySource.view');
+        return view('Enquiry.EnquirySource.add');
     }
 
     /**
@@ -39,8 +39,7 @@ class EnquirySourcesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'source'=>'required',
-            'description'=>'',
+            'source'=>'required',            
         ]);
         $data = $request->all();
         $source = EnquirySource::create($data);

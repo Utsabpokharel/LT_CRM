@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class LoginController extends Controller
 {
@@ -38,13 +39,18 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-     public function login(Request $request){
+    public function login(Request $request){
         $credential = $request->only('email', 'password');
         if (Auth::attempt($credential)) {
-            return 'done';
-            //  return redirect()->route('index');
+            // return 'done';
+             return redirect()->route('dashboard');
         } else {
-            return redirect()->back()->withErrors('email or password do not match');
+            return redirect()->back()->withErrors('Inavlid Credentials !!!');
         }
+    }
+    public function logout(){
+        Session::flush();
+        Auth::logout();        
+        return redirect('/')->with('success','Logged Out Successfully !!!');
     }
 }

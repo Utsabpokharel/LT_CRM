@@ -21,7 +21,7 @@
                 <h6 class="font-weight-bold text-primary">All Roles</h6>
             </div>
             <div class="col-md-6">
-                <a class="btn btn-success float-right" href="{{route('role.create')}}">Add +</a>
+                <!-- <a class="btn btn-success float-right" href="{{route('role.create')}}">Add +</a> -->
             </div>
         </div>
         <div class="card-body">
@@ -54,7 +54,7 @@
                                 <button class="btn btn-success btn-sm" type="submit"><span
                                         class="fa fa-eye"></span></button>
                                 @else
-                                <form action="{{route('role.edit',$role->id)}}" method="GET"
+                                <!-- <form action="{{route('role.edit',$role->id)}}" method="GET"
                                     style="display: inline-block">
                                     {{csrf_field()}}
                                     {{method_field('PUT')}}
@@ -67,7 +67,9 @@
                                     {{method_field('DELETE')}}
                                     <button class="btn btn-danger btn-sm" type="submit"><span
                                             class="fa fa-trash"></span></button>
-                                </form>
+                                </form> -->
+                                <button class="btn btn-success btn-sm" type="submit"><span
+                                        class="fa fa-eye"></span></button>
                                 @endif
                             </td>
                         </tr>

@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="form-group row d-none" id="customer">
-                        <label class="control-label col-md-3">Enquiry Name :<span class="required text-danger"> *
+                        <label class="control-label col-md-3">Enquired By :<span class="required text-danger"> *
                             </span>
                         </label>
                         <div class="col-md-8">
@@ -41,7 +41,7 @@
                     </div>
                     <div id="notcustomer">
                         <div class="form-group row">
-                            <label class="control-label col-md-3">Name:<span class="required text-danger"> *
+                            <label class="control-label col-md-3">Enquired By:<span class="required text-danger"> *
                                 </span>
                             </label>
                             <div class="col-md-8">
