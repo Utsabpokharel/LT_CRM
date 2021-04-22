@@ -18,13 +18,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes();
+Route::any('/login', 'Auth\LoginController@login')->name('login');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/login', 'LoginController@login')->name('login');
+Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::any('/home', 'HomeController@index')->name('home');
  //dashboard
 Route::any('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
-Route::group(['prefix'=>'admin','namespace'=>'Admin'] ,function(){
+Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']] ,function(){
     //users
     Route::resource('user',AllUsersController::class);
     //employee
@@ -104,6 +104,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Setting'] ,function(){
     Route::get('email', 'EmailSettingsController@index')->name('email');
 });
 Route::group(['prefix'=>'admin','namespace'=>'Profile'] ,function(){
-    //income
+    //bank account
     Route::resource('bankaccount',BankAccountsController::class);
 });

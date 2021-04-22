@@ -66,8 +66,8 @@
                             <td>{{$enquiry->email}}</td>
                             <td>{{$enquiry->phone}}</td>
                             @endif
-                            <td>{{$enquiry->category->name}}</td>
-                            <td>{{$enquiry->source->name}}</td>
+                            <td>{{$enquiry->category['categoryname']}}</td>
+                            <td>{{$enquiry->source['source']}}</td>
                             <td>{{$enquiry->date}}</td>
                             <td>{{$enquiry->time}}</td>
                             <td>
@@ -85,7 +85,7 @@
                                     <button class="btn btn-danger btn-sm" type="submit"><span
                                             class="fa fa-trash"></span></button>
                                 </form>
-                                <a href="#"><span class="fa fa-reply"></span></a>
+                                <a href="{{ route('enquiryresponse.create', $enquiry->id)}}"><span class="fa fa-reply"></span></a>
                             </td>
                         </tr>
                     </tbody>

@@ -8,7 +8,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Admin</div>
+        <div class="sidebar-brand-text mx-3">{{Auth::user()->username}}</div>
     </a>
 
     <!-- Divider -->
@@ -23,12 +23,12 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
     <!-- Heading -->
     <div class="sidebar-heading">
         People
     </div>
-
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2)
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true"
@@ -58,6 +58,7 @@
             </div>
         </div>
     </li>
+    @endif
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo">
@@ -71,16 +72,17 @@
                 <a class="collapse-item" href="{{route('customer.create')}}">Add Customer</a>
             </div>
         </div>
-    </li>
-
+    </li>   
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+   
+    @endif
     <!-- Heading -->
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2)
     <div class="sidebar-heading">
         Set Up
     </div>
-
+    @if(Auth::user()->role == 1)
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRoles" aria-expanded="true"
@@ -92,10 +94,11 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Role Components:</h6>
                 <a class="collapse-item" href="{{route('role.index')}}">All Role</a>
-                <a class="collapse-item" href="">Add Role</a>
+                <!-- <a class="collapse-item" href="{{route('role.create')}}">Add Role</a> -->
             </div>
         </div>
     </li>
+    @endif
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDepartment"
             aria-expanded="true" aria-controls="collapseDepartment">
@@ -128,7 +131,8 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @endif
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
     <!-- Heading -->
     <div class="sidebar-heading">
         Enquiry
@@ -194,12 +198,13 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @endif
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
     <!-- Heading -->
     <div class="sidebar-heading">
         Task Management
     </div>
-
+    @if(Auth::user()->role == 1)
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTask" aria-expanded="true"
@@ -217,6 +222,7 @@
             </div>
         </div>
     </li>
+    @endif
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMyTask" aria-expanded="true"
             aria-controls="collapseMyTask">
@@ -234,11 +240,13 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @endif
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
     <!-- Heading -->
     <div class="sidebar-heading">
         Leave Management
     </div>
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2)
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLeaveTypes"
             aria-expanded="true" aria-controls="collapseLeaveTypes">
@@ -270,6 +278,7 @@
             </div>
         </div>
     </li>
+    @endif
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMyLeave"
             aria-expanded="true" aria-controls="collapseMyLeave">
@@ -286,7 +295,8 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @endif
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
     <!-- Heading -->
     <div class="sidebar-heading">
         Accounts
@@ -355,17 +365,18 @@
             <i class="fas fa-fw fa-cog"></i>
             <span>Invoices</span>
         </a>
-        <div id="collapseInvoice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <!-- <div id="collapseInvoice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Invoice Components:</h6>
                 <a class="collapse-item" href="{{route('invoice.index')}}">Invoices</a>
             </div>
-        </div>
+        </div> -->
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @endif
+    @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3 || Auth::user()->role == 4)
     <!-- Heading -->
     <div class="sidebar-heading">
         Settings
@@ -381,15 +392,18 @@
         <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Settings Components:</h6>
+                @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                 <a class="collapse-item" href="{{route('general')}}">General Settings</a>
-                <a class="collapse-item" href="{{route('email')}}">Email Settings</a>
-                <a class="collapse-item" href="{{route('password')}}">Change Password</a>
                 <a class="collapse-item" href="{{route('payment')}}">Payment Settings</a>
+                @endif
+                <a class="collapse-item" href="{{route('email')}}">Email Settings</a>
+                <a class="collapse-item" href="{{route('password')}}">Change Password</a>               
             </div>
         </div>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+    @endif
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

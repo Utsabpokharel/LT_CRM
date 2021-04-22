@@ -42,6 +42,21 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+        'user' => [
+            \App\Http\Middleware\RoleFilter::class,
+        ],
+        'super' => [
+            \App\Http\Middleware\SuperAdmin::class,
+        ],
+        'admin' => [
+            \App\Http\Middleware\Admin::class,
+        ],
+        'employee' => [
+            \App\Http\Middleware\Employee::class,
+        ],
+        'customer' => [
+            \App\Http\Middleware\Customer::class,
+        ],
     ];
 
     /**

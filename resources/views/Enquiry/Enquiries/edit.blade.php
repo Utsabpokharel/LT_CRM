@@ -31,7 +31,7 @@
                 />
             </div>
             <div class="form-group d-none" id="customer">
-                <label>Enquiry Name :</label>
+                <label>Enquired By :</label>
                 <select name="customer_id" class="form-control form-control-solid customer">
                     <option disabled selected>--select any one--</option>
                     @foreach($customer as $customer)
@@ -41,7 +41,7 @@
             </div>
             <div id="notcustomer">
                 <div class="form-group">
-                    <label>Name:</label>
+                    <label>Enquired By:</label>
                     <input type="name" class="form-control form-control-solid notcustomer" placeholder="Enter full name"
                            name="name" value="{{$enquiry->name}}"
                     />
