@@ -33,8 +33,7 @@
                             <select name="customer_id" class="form-control form-control-solid customer">
                                 <option disabled selected>--Select any one--</option>
                                 @foreach($customer as $customer)
-                                <option @if(old('customer_id')==$customer->id) selected @endif
-                                    value="{{$customer->id}}">{{$customer->fname}} {{$customer->lname}}</option>
+                                <option value="{{$customer->id}}">{{$customer->firstname}} {{$customer->lastname}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -96,7 +95,7 @@
                                 <option selected disabled>--Select any one--</option>
                                 @foreach($source as $source)
                                 <option @if(old('source_id')==$source->id) selected @endif
-                                    value="{{$source->id}}">{{$source->name}}
+                                    value="{{$source->id}}">{{$source->source}}
                                 </option>
                                 @endforeach
                             </select>

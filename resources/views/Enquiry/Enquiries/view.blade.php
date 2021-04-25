@@ -58,9 +58,9 @@
                         <tr>
                             <th>{{$loop->index+1}}</th>
                             @if($enquiry->is_customer=='Yes')
-                            <td>{{$enquiry->customer->fname}} {{$enquiry->customer->lname}}</td>
+                            <td>{{$enquiry->customer->firstname}} {{$enquiry->customer->lastname}}</td>
                             <td>{{$enquiry->customer->email}}</td>
-                            <td>{{$enquiry->customer->phone}}</td>
+                            <td>{{$enquiry->customer->contact_number}}</td>
                             @else
                             <td>{{$enquiry->name}}</td>
                             <td>{{$enquiry->email}}</td>

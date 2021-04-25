@@ -153,7 +153,7 @@
 
         <!-- Assigned by-->
 
-        <input type="hidden" class="form-control" value="0000" required readonly name="assignedBy" />
+        <input type="hidden" class="form-control" value="{{Auth::user()->id}}" required readonly name="assignedBy" />
         <!-- Status-->
 
         <input type="hidden" class="form-control" value="0" required readonly name="status" />

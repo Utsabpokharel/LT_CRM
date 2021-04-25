@@ -66,6 +66,12 @@ Route::group(['prefix'=>'admin','namespace'=>'Task'] ,function(){
     //complete
     Route::put('/Todo-Complete/{id}', 'ToDosController@complete')->name('complete');
     Route::get('/Completed-Tasks', 'ToDosController@completeTask')->name('completedTask');
+    //all  tasks
+    Route::get('/allTasks','ToDosController@alltask')->name('alltask');
+    //assigned tasks
+    Route::get('/assignedTasks','ToDosController@assigned')->name('assigned');
+    //received tasks
+    Route::get('/receivedTasks','ToDosController@received')->name('received');
 });
 Route::group(['prefix'=>'admin','namespace'=>'Enquiry'] ,function(){
     //enquiry source

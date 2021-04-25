@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Employee;
 use App\Models\Task\ToDo;
 use Illuminate\Support\Carbon;
+use Auth;
 
 class ToDosController extends Controller
 {
@@ -61,7 +62,7 @@ class ToDosController extends Controller
             'deadline' => 'required',
             'task_priority' => 'required',
         ]);
-         $todo = new toDo([
+         $todo = new ToDo([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $request->user_id,
@@ -87,7 +88,7 @@ class ToDosController extends Controller
         }
         $todos = $todo->save();
         if ($todos) {
-                return redirect()->route('todo.index')->with('success', 'New Task Created Successfully');
+                return redirect()->route('alltask')->with('success', 'New Task Created Successfully');
         } else {
             return redirect()->back()->with('error', 'Oops!!! some error occurred');
         }
@@ -161,7 +162,7 @@ class ToDosController extends Controller
             // if (Auth::user()->roles->name == 'admin') {
             //     return redirect()->route('assignTask')->with('success', 'Selected Task updated successfully');
             // } else {
-                return redirect()->route('todo.index')->with('success', 'Selected Task updated successfully');
+                return redirect()->route('alltask')->with('success', 'Selected Task updated successfully');
             // }
         } else {
 
@@ -221,6 +222,23 @@ class ToDosController extends Controller
         } else {
             return redirect()->back()->with('error', 'sorry there was an error Re_Assigning Task');
         }
+    }
+    public function alltask(){
+        $todo = ToDo::orderBy('id', 'desc')->where('assignedBy',Auth::user()->id)
+                                           ->orWhere('assignedTo',Auth::user()->id)
+                                           ->orWhere('ReAssignedBy',Auth::user()->id)
+                                           ->orWhere('reAssignedTo',Auth::user()->id)->get();
+        return view('Task.view', compact('todo'));
+    }
+    public function assigned(){
+        $todo = ToDo::orderBy('id', 'desc')->where('assignedBy',Auth::user()->id)                                           
+                                           ->orWhere('ReAssignedBy',Auth::user()->id)->get();
+        return view('Task.view', compact('todo'));
+    }
+    public function received(){
+        $todo = ToDo::orderBy('id', 'desc')->Where('assignedTo',Auth::user()->id)                                           
+                                           ->orWhere('reAssignedTo',Auth::user()->id)->get();
+        return view('Task.view', compact('todo'));
     }
 
     // public function reaassign($id)
