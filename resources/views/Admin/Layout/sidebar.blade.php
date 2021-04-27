@@ -102,7 +102,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDepartment"
             aria-expanded="true" aria-controls="collapseDepartment">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-building"></i>
             <span>Department</span>
         </a>
         <div id="collapseDepartment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -116,7 +116,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDesignation"
             aria-expanded="true" aria-controls="collapseDesignation">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-user-tie"></i>
             <span>Designation</span>
         </a>
         <div id="collapseDesignation" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -142,7 +142,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnquiryCategory"
             aria-expanded="true" aria-controls="collapseEnquiryCategory">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-folder"></i>
             <span>Enquiry Category</span>
         </a>
         <div id="collapseEnquiryCategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -156,7 +156,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnquirySource"
             aria-expanded="true" aria-controls="collapseEnquirySource">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-folder-open"></i>
             <span>Enquiry Source</span>
         </a>
         <div id="collapseEnquirySource" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -170,7 +170,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnquiry"
             aria-expanded="true" aria-controls="collapseEnquiry">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-question"></i>
             <span>New Enquiry</span>
         </a>
         <div id="collapseEnquiry" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -184,14 +184,14 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnquiryResponse"
             aria-expanded="true" aria-controls="collapseEnquiryResponse">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-reply"></i>
             <span>Enquiry Response</span>
         </a>
         <div id="collapseEnquiryResponse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Response Components:</h6>
                 <a class="collapse-item" href="{{route('enquiryresponse.index')}}">All Response</a>
-                <a class="collapse-item" href="{{route('enquiryresponse.create')}}">Add Response</a>
+                <!-- <a class="collapse-item" href="{{route('enquiryresponse.create')}}">Add Response</a> -->
             </div>
         </div>
     </li>
@@ -209,7 +209,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTask" aria-expanded="true"
             aria-controls="collapseTask">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-copy"></i>
             <span>Tasks</span>
         </a>
         <div id="collapseTask" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -226,15 +226,15 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMyTask" aria-expanded="true"
             aria-controls="collapseMyTask">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-file"></i>
             <span>My Tasks</span>
         </a>
         <div id="collapseMyTask" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Tasks Components:</h6>
-                <a class="collapse-item" href="">All Tasks</a>
-                <a class="collapse-item" href="">Assigned Tasks</a>
-                <a class="collapse-item" href="">Received Tasks</a>
+                <a class="collapse-item" href="{{route('alltask')}}">All Tasks</a>
+                <a class="collapse-item" href="{{route('assigned')}}">Assigned Tasks</a>
+                <a class="collapse-item" href="{{route('received')}}">Received Tasks</a>
             </div>
         </div>
     </li>
@@ -250,7 +250,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLeaveTypes"
             aria-expanded="true" aria-controls="collapseLeaveTypes">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-calendar"></i>
             <span>Leave Types</span>
         </a>
         <div id="collapseLeaveTypes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -265,7 +265,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLeave" aria-expanded="true"
             aria-controls="collapseLeave">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-calendar-alt"></i>
             <span>Leaves</span>
         </a>
         <div id="collapseLeave" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -282,7 +282,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMyLeave"
             aria-expanded="true" aria-controls="collapseMyLeave">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-calendar-minus"></i>
             <span>My Leaves</span>
         </a>
         <div id="collapseMyLeave" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -306,7 +306,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIncome" aria-expanded="true"
             aria-controls="collapseIncome">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-coins"></i>
             <span>Incomes</span>
         </a>
         <div id="collapseIncome" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -320,7 +320,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses"
             aria-expanded="true" aria-controls="collapseExpenses">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-coins"></i>
             <span>Expenses</span>
         </a>
         <div id="collapseExpenses" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -334,7 +334,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBank" aria-expanded="true"
             aria-controls="collapseBank">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-landmark"></i>
             <span>Bank Account</span>
         </a>
         <div id="collapseBank" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -348,7 +348,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayments"
             aria-expanded="true" aria-controls="collapsePayments">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-receipt"></i>
             <span>Payments</span>
         </a>
         <div id="collapsePayments" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -359,19 +359,19 @@
             </div>
         </div>
     </li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice"
             aria-expanded="true" aria-controls="collapseInvoice">
             <i class="fas fa-fw fa-cog"></i>
             <span>Invoices</span>
         </a>
-        <!-- <div id="collapseInvoice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseInvoice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Invoice Components:</h6>
                 <a class="collapse-item" href="{{route('invoice.index')}}">Invoices</a>
             </div>
-        </div> -->
-    </li>
+        </div>
+    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider">

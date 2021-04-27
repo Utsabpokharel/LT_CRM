@@ -15,10 +15,11 @@ class CreateEnquiryResponsesTable extends Migration
     {
         Schema::create('enquiry_responses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('enquiry_by');
-            $table->integer('responded_by');
+            $table->integer('enquiry_id');          
+            $table->string('responded_by');
             $table->string('responded_through');
             $table->longText('message');
+            $table->datetime('responded_on');
             $table->longText('remarks')->nullable();
             $table->timestamps();
         });

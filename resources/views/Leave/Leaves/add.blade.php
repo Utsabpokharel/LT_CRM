@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <!-- Applied By -->
-                    <input type="hidden" class="form-control" value="0" required readonly name="applied_by" />
+                    <input type="hidden" class="form-control" value="{{Auth::user()->id}}" required readonly name="applied_by" />
                     <!-- Employee_id -->
                     <input type="hidden" class="form-control" value="5" required readonly name="employee_id" />
                     <!-- Assigned date -->
