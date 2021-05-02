@@ -32,7 +32,7 @@ class EnquiryResponsesController extends Controller
         $customer = Customer::all();
         $enquiry = Enquiry::all();
         $d = Carbon::now();
-        // dd($enquiry->id);
+        // dd($enquiry);
         return view('Enquiry.EnquiryResponse.add',compact('customer','d','enquiry'));
     }
 
@@ -48,9 +48,22 @@ class EnquiryResponsesController extends Controller
             'message'=>'required',
             'responded_through' => 'required'            
         ]);
-        $data = $request->all();
-        $source = EnquiryResponse::create($data);
-        return redirect()->route('enquiryresponse.index')->with('success', 'New Source added sucessfully');
+        $response = new EnquiryResponse([
+            'enquiry_id' => $request->enquiry_id,
+            'responded_by' => $request->responded_by,
+            'responded_through' => $request->responded_through,
+            'message' => $request->message,
+            'responded_on' => $request->responded_on,            
+            'remarks' => $request->remarks,            
+        ]);
+        $data = $response->save();
+        // dd($response);
+        if ($data) {
+            return redirect()->route('enquiryresponse.index')->with('success', 'New Response added sucessfully');
+        } else {
+            return redirect()->back()->with('error', 'Oops!!! some error occurred');
+        }       
+       
     }
 
     /**

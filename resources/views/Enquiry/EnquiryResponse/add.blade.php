@@ -83,11 +83,12 @@
                  <!-- User Id -->
 
         <input type="hidden" class="form-control" value="{{Auth::user()->username}}" required readonly name="responded_by"/>
-
+       
         <!-- Enquired by-->
-        <!-- @foreach($enquiry as $enquiry) -->
-        <input type="hidden" class="form-control" value="{{$enquiry->id}}" required readonly name="enquiry_id" />
-        <!-- @endforeach -->
+        @foreach($enquiry as $enquirys)    
+        {{dd($enquirys)}}   
+            <input type="text" class="form-control" value="{{$enquirys->id}}" required readonly name="enquiry_id" />
+        @endforeach
 
             </div>
         </div>
