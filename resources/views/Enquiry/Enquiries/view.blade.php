@@ -85,7 +85,14 @@
                                     <button class="btn btn-danger btn-sm" type="submit"><span
                                             class="fa fa-trash"></span></button>
                                 </form>
-                                <a href="{{ route('enquiryresponse.create', $enquiry->id)}}"><span class="fa fa-reply"></span></a>
+                                <form action="{{route('enquiryresponse.create',$enquiry->id)}}" method="GET"
+                                    style="display: inline-block">
+                                    {{csrf_field()}}
+                                    {{method_field('PUT')}}
+                                    <button class="btn btn-success btn-sm" type="submit"><span
+                                            class="fa fa-reply"></span></button>
+                                </form>
+                                <!-- <a href="{{ route('enquiryresponse.create', $enquiry->id)}}" value="{{$enquiry->id}}"><span class="fa fa-reply"></span></a> -->
                             </td>
                         </tr>
                     </tbody>

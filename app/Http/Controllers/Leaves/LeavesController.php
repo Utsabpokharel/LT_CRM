@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Leaves;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\AllUser;
+use App\Models\Admin\Employee;
 use App\Models\Leaves\Leave;
 use App\Models\Leaves\LeaveType;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+
 
 class LeavesController extends Controller
 {
@@ -33,8 +35,10 @@ class LeavesController extends Controller
     public function create()
     {
         $leavetype = LeaveType::all();
+        $emp_id = Employee::where('email',Auth::user()->email)->value('employee_id');
+        // dd($emp_id);
         $d = Carbon::now();
-        return view('Leave.Leaves.add', compact('leavetype', 'd'));
+        return view('Leave.Leaves.add', compact('leavetype', 'd','emp_id'));
     }
 
     /**
@@ -56,11 +60,7 @@ class LeavesController extends Controller
         // $email = DB::table('all_users')->where('role_id', '1')->select('email')->get();
         // Mail::to($email)->send(new LeaveApplyMail());
         if ($leave) {
-            // if (Auth::user()->role_id == 1) {
-            //     return redirect()->route('leave.index')->with('success', 'Leave has been applied Successfully');
-            // } else {
                 return redirect()->route('myLeaves')->with('success', 'Leave has been applied Successfully');
-            // }
         } else {
             return redirect()->back()->with('error', 'Oops!!! some error occurred');
         }
@@ -174,7 +174,7 @@ class LeavesController extends Controller
     public function employeeLeave()
     {
         // $leave = Leave::where('applied_by', Auth::user()->id)->get();
-        $leave = Leave::where('applied_by', '0')->get();
+        $leave = Leave::where('applied_by', Auth::user()->id)->get();
         $d = Carbon::today()->toDateString();
         return view('Leave.Leaves.myleaves', compact('leave', 'd'));
     }

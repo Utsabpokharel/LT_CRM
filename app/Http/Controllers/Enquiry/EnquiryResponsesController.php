@@ -8,6 +8,7 @@ use App\Models\Admin\Customer;
 use App\Models\Enquiry\EnquiryResponse;
 use App\Models\Enquiry\Enquiry;
 use Illuminate\Support\Carbon;
+use DB;
 
 class EnquiryResponsesController extends Controller
 {
@@ -32,7 +33,8 @@ class EnquiryResponsesController extends Controller
         $customer = Customer::all();
         $enquiry = Enquiry::all();
         $d = Carbon::now();
-        // dd($enquiry->id);
+        // $enquiry = DB::table('enquiries')->find($enq);
+        // dd($enquiry);       
         return view('Enquiry.EnquiryResponse.add',compact('customer','d','enquiry'));
     }
 
@@ -48,9 +50,22 @@ class EnquiryResponsesController extends Controller
             'message'=>'required',
             'responded_through' => 'required'            
         ]);
-        $data = $request->all();
-        $source = EnquiryResponse::create($data);
-        return redirect()->route('enquiryresponse.index')->with('success', 'New Source added sucessfully');
+        $response = new EnquiryResponse([
+            'enquiry_id' => $request->enquiry_id,
+            'responded_by' => $request->responded_by,
+            'responded_through' => $request->responded_through,
+            'message' => $request->message,
+            'responded_on' => $request->responded_on,            
+            'remarks' => $request->remarks,            
+        ]);
+        $data = $response->save();
+        // dd($response);
+        if ($data) {
+            return redirect()->route('enquiryresponse.index')->with('success', 'New Response added sucessfully');
+        } else {
+            return redirect()->back()->with('error', 'Oops!!! some error occurred');
+        }       
+       
     }
 
     /**
@@ -72,7 +87,12 @@ class EnquiryResponsesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $response = EnquiryResponse::findOrFail($id);
+        $customer = Customer::all();
+        $enquiry = Enquiry::find($id);
+        $d = Carbon::now();
+        // dd($response);
+        return view('Enquiry.EnquiryResponse.edit',compact('customer','d','response','enquiry'));
     }
 
     /**
@@ -84,7 +104,24 @@ class EnquiryResponsesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $response = EnquiryResponse::findOrFail($id);
+        $request->validate([
+            'message'=>'required',
+            'responded_through' => 'required'            
+        ]);
+        $response->enquiry_id = $request->enquiry_id;
+        $response->responded_by = $request->responded_by;
+        $response->responded_through = $request->responded_through;
+        $response->responded_on = $request->responded_on;
+        $response->message = $request->message;
+        $response->remarks = $request->remarks;
+        $update = $response->save();
+        // dd($update);
+        if ($update) {
+            return redirect()->route('enquiryresponse.index')->with('success', 'Enquiry Response Details updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating.');
+        }
     }
 
     /**

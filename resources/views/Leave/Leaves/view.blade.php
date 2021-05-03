@@ -50,7 +50,7 @@
                         <tr>
                             <td>{{$loop->index+1}}</td>
                             <td>{{$leaves->leave_reason}}</td>
-                            <td>{{$leaves->applied_by}}</td>
+                            <td>{{$leaves->applied['username']}}</td>
                             <td class="valigntop">
                                 <div class="btn-group">
                                     @if($leaves->status=='1')
