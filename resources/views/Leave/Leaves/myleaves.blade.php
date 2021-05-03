@@ -31,7 +31,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Leave Reason</th>
-                            <th>Applied By</th>
+                            <th>Applied On</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -40,7 +40,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Leave Reason</th>
-                            <th>Applied By</th>
+                            <th>Applied On</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -50,7 +50,7 @@
                         <tr>
                             <td>{{$loop->index+1}}</td>
                             <td>{{$leaves->leave_reason}}</td>
-                            <td>{{$leaves->applied_by}}</td>
+                            <td>{{$leaves->applied_on}}</td>
                             <td class="valigntop">
                                 <div class="btn-group">
                                     @if($leaves->status=='1')

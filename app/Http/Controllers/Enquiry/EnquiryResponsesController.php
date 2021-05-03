@@ -8,6 +8,7 @@ use App\Models\Admin\Customer;
 use App\Models\Enquiry\EnquiryResponse;
 use App\Models\Enquiry\Enquiry;
 use Illuminate\Support\Carbon;
+use DB;
 
 class EnquiryResponsesController extends Controller
 {
@@ -32,7 +33,8 @@ class EnquiryResponsesController extends Controller
         $customer = Customer::all();
         $enquiry = Enquiry::all();
         $d = Carbon::now();
-        // dd($enquiry);
+        // $enquiry = DB::table('enquiries')->find($enq);
+        // dd($enquiry);       
         return view('Enquiry.EnquiryResponse.add',compact('customer','d','enquiry'));
     }
 
@@ -85,7 +87,12 @@ class EnquiryResponsesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $response = EnquiryResponse::findOrFail($id);
+        $customer = Customer::all();
+        $enquiry = Enquiry::find($id);
+        $d = Carbon::now();
+        // dd($response);
+        return view('Enquiry.EnquiryResponse.edit',compact('customer','d','response','enquiry'));
     }
 
     /**
@@ -97,7 +104,24 @@ class EnquiryResponsesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $response = EnquiryResponse::findOrFail($id);
+        $request->validate([
+            'message'=>'required',
+            'responded_through' => 'required'            
+        ]);
+        $response->enquiry_id = $request->enquiry_id;
+        $response->responded_by = $request->responded_by;
+        $response->responded_through = $request->responded_through;
+        $response->responded_on = $request->responded_on;
+        $response->message = $request->message;
+        $response->remarks = $request->remarks;
+        $update = $response->save();
+        // dd($update);
+        if ($update) {
+            return redirect()->route('enquiryresponse.index')->with('success', 'Enquiry Response Details updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Some error occured while updating.');
+        }
     }
 
     /**

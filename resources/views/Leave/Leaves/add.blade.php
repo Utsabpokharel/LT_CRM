@@ -88,7 +88,7 @@
                     <!-- Applied By -->
                     <input type="hidden" class="form-control" value="{{Auth::user()->id}}" required readonly name="applied_by" />
                     <!-- Employee_id -->
-                    <input type="hidden" class="form-control" value="5" required readonly name="employee_id" />
+                    <input type="hidden" class="form-control" value="{{$emp_id}}" required readonly name="employee_id" />
                     <!-- Assigned date -->
                     <input type="hidden" class="form-control" value="{{$d}}" required readonly name="applied_on" />
                     <!-- status -->
