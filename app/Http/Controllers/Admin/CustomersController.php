@@ -17,7 +17,7 @@ class CustomersController extends Controller
     {
         $customer = Customer::orderBy('id', 'desc')->get();
         // dd($customer);
-        return view('Admin.Customer.view',compact('customer'));
+        return view('Admin.Customer.view', compact('customer'));
     }
 
     /**
@@ -39,25 +39,23 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'email'=>'required|unique:customers',
-            'gender'=>'required',
-            'photo'=>'image',
-            'customer_type'=>'required',
-            'contact_number'=>'required'
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|unique:customers',
+            'photo' => 'image',
+            'customer_type' => 'required',
+            'contact_number' => 'required'
         ]);
 
         $customer = new Customer([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
-            'gender' => $request->gender,
             'customer_type' => $request->customer_type,
             'contact_number' => $request->contact_number,
         ]);
-          if ($request->hasFile('photo')) {
+        if ($request->hasFile('photo')) {
             $image = $request->file('photo');
             $name = "Customer-" . time() . '.' . $image->getClientOriginalExtension();
             $image->move('Uploads/Customer/Image/', $name);
@@ -65,10 +63,10 @@ class CustomersController extends Controller
         }
         $data = $customer->save();
         if ($data) {
-           return redirect()->route('customer.index')->with('success', 'Customer added sucessfully');
+            return redirect()->route('customer.index')->with('success', 'Customer added sucessfully');
         } else {
-            return redirect()->back()->with('error', 'Oops!!! some error occurred');        }
-
+            return redirect()->back()->with('error', 'Oops!!! some error occurred');
+        }
     }
 
     /**
@@ -103,19 +101,17 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $customer = Customer::find($id);
+        $customer = Customer::find($id);
         $request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'email'=>'required',
-            'gender'=>'required',
-            'customer_type'=>'required',
-            'contact_number'=>'required'
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'customer_type' => 'required',
+            'contact_number' => 'required'
         ]);
         $customer->firstname = $request->firstname;
         $customer->lastname = $request->lastname;
         $customer->email = $request->email;
-        $customer->gender = $request->gender;
         $customer->customer_type = $request->customer_type;
         $customer->contact_number = $request->contact_number;
         $update = $customer->save();

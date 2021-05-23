@@ -15,6 +15,14 @@ class CreatePersonalDetailsTable extends Migration
     {
         Schema::create('personal_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('permanent_address');
+            $table->string('temporary_address');
+            $table->string('gender');
+            $table->date('date_of_birth');
+            $table->longText('about');
+            $table->string('ctzn_front');
+            $table->string('ctzn_back');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

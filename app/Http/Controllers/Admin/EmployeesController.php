@@ -18,10 +18,10 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-         $department = Department::all();
-         $employee = Employee::orderBy('id','desc')->get();
+        $department = Department::all();
+        $employee = Employee::orderBy('id', 'desc')->get();
         // dd($employee);
-        return view('Admin.Employee.view',compact('employee','department'));
+        return view('Admin.Employee.view', compact('employee', 'department'));
     }
 
     /**
@@ -34,7 +34,7 @@ class EmployeesController extends Controller
         $title = Title::all();
         $department = Department::all();
         $level = Level::all();
-         return view('Admin.Employee.add',compact('title','department','level'));
+        return view('Admin.Employee.add', compact('title', 'department', 'level'));
     }
 
     /**
@@ -45,32 +45,30 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-            'employee_id'=>'required',
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'email'=>'required|unique:employees',
-            'gender'=>'required',
-            'photo'=>'image',
-            'pan'=>'required',
-            'contact_number'=>'required',
-            'title'=>'required',
-            'level'=>'required',
-            'department'=>'required',
+        $request->validate([
+            'employee_id' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|unique:employees',
+            'photo' => 'image',
+            'pan' => 'required',
+            'contact_number' => 'required',
+            'title' => 'required',
+            'level' => 'required',
+            'department' => 'required',
         ]);
         $employee = new Employee([
             'employee_id' => $request->employee_id,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
-            'gender' => $request->gender,
             'department' => $request->department,
             'title' => $request->title,
             'level' => $request->level,
             'pan' => $request->pan,
             'contact_number' => $request->contact_number,
         ]);
-         if ($request->hasFile('photo')) {
+        if ($request->hasFile('photo')) {
             $image = $request->file('photo');
             $name = "Employee-" . time() . '.' . $image->getClientOriginalExtension();
             $image->move('Uploads/Employee/Image/', $name);
@@ -78,11 +76,10 @@ class EmployeesController extends Controller
         }
         $data = $employee->save();
         if ($data) {
-           return redirect()->route('employee.index')->with('success', 'Employee added successfully');
+            return redirect()->route('employee.index')->with('success', 'Employee added successfully');
         } else {
             return redirect()->back()->with('error', 'Oops!!! some error occurred');
         }
-
     }
 
     /**
@@ -108,7 +105,7 @@ class EmployeesController extends Controller
         $department = Department::all();
         $level = Level::all();
         $employee = Employee::findorfail($id);
-        return view('Admin.Employee.edit', compact('employee','title','level','department'));
+        return view('Admin.Employee.edit', compact('employee', 'title', 'level', 'department'));
     }
 
     /**
@@ -122,23 +119,21 @@ class EmployeesController extends Controller
     {
         $employee = Employee::find($id);
         $request->validate([
-            'employee_id'=>'required',
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'email'=>'required',
-            'gender'=>'required',
-            'photo'=>'image',
-            'pan'=>'required',
-            'contact_number'=>'required',
-            'title'=>'required',
-            'level'=>'required',
-            'department'=>'required',
+            'employee_id' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'photo' => 'image',
+            'pan' => 'required',
+            'contact_number' => 'required',
+            'title' => 'required',
+            'level' => 'required',
+            'department' => 'required',
         ]);
         $employee->employee_id = $request->employee_id;
         $employee->firstname = $request->firstname;
         $employee->lastname = $request->lastname;
         $employee->email = $request->email;
-        $employee->gender = $request->gender;
         $employee->photo = $request->photo;
         $employee->pan = $request->pan;
         $employee->title = $request->title;

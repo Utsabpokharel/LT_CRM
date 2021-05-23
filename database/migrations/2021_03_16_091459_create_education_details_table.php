@@ -15,6 +15,14 @@ class CreateEducationDetailsTable extends Migration
     {
         Schema::create('education_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('institute_name');
+            $table->string('institute_address');
+            $table->string('degree');
+            $table->string('faculty');
+            $table->string('board');
+            $table->date('passed_year');
+            $table->string('division');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

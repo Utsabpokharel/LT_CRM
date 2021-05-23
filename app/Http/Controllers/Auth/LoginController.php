@@ -45,7 +45,7 @@ class LoginController extends Controller
             // return 'done';
              return redirect()->route('dashboard');
         } else {
-            return redirect()->back()->withErrors('Inavlid Credentials !!!');
+            return redirect()->back()->withErrors('Invalid Credentials !!!');
         }
     }
     public function logout(){

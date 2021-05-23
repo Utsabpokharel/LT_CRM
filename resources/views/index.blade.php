@@ -13,7 +13,6 @@
 
     <!-- Content Row -->
     <div class="row">
-
         <!-- Total Users Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-primary shadow h-100 py-2">
@@ -32,25 +31,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Total Employee Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total Employee </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$employee}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Total Customers Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-info shadow h-100 py-2">
@@ -72,27 +52,64 @@
                 </div>
             </div>
         </div>
-
-        <!-- Pending Leaves Card Example -->
+        <!-- Total Departments Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-warning shadow h-100 py-2">
+            <div class="card border-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Total Pending Leaves</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$pending_leaves}}</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Departments
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$department}}</div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-building fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Total Enquiries Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Enquiries</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$enquiry}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-walking fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @if (Auth::user()->role == 1 || Auth::user()->role == 2)
     <div class="row">
-
+        <!-- Total Employee Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Employee </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$employee}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Pending Tasks Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-warning shadow h-100 py-2">
@@ -128,47 +145,25 @@
                 </div>
             </div>
         </div>
-
-        <!-- Total Departments Card Example -->
+        <!-- Pending Leaves Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-success shadow h-100 py-2">
+            <div class="card border-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Departments
-                            </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$department}}</div>
-                                </div>
-                            </div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Pending Leaves</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$pending_leaves}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-building fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Total Enquiries Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Total Enquiries</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$enquiry}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-walking fa-2x text-gray-300"></i>
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @endif
     <div class="row">
 
         <!-- Assigned Tasks Card Example -->
@@ -179,7 +174,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Assigned Tasks</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">---
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$assigned}}
                             </div>
                         </div>
                         <div class="col-auto">
@@ -198,7 +193,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Received Tasks</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">---</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$received}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-file fa-2x text-gray-300"></i>
@@ -215,8 +210,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                My Pending Tasks</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">---</div>
+                                Pending Tasks</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$pending_tasks}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-file fa-2x text-gray-300"></i>
@@ -234,7 +229,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 My Pending Leaves</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">---</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$pending_leaves}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -247,7 +242,7 @@
 
     <!-- Content Row -->
     <!-- Content Row -->
-
+    @if (Auth::user()->role == 1 || Auth::user()->role == 2)
     <div class="card-body p-0 border-0 shadow-lg">
         <!-- Nested Row within Card Body -->
 
@@ -377,6 +372,7 @@
         </div>
 
     </div>
+    @endif
 </div>
 <!-- /.container-fluid -->
 @endsection

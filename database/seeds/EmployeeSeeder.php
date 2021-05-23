@@ -13,10 +13,9 @@ class EmployeeSeeder extends Seeder
     {
         DB::table('employees')->insert([
             'employee_id' => '001',
-            'firstname' => 'Super',
+            'firstname' => 'Super-',
             'lastname' => 'Admin',
             'email' => 'super@admin.com',
-            'gender' =>'Male',
             'pan' => '12345rt678uy',
             'contact_number' => '9876543210',
             'level' => 'Super Admin',

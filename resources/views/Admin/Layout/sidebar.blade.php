@@ -72,10 +72,10 @@
                 <a class="collapse-item" href="{{route('customer.create')}}">Add Customer</a>
             </div>
         </div>
-    </li>   
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-   
+
     @endif
     <!-- Heading -->
     @if(Auth::user()->role == 1 || Auth::user()->role == 2)
@@ -394,10 +394,12 @@
                 <h6 class="collapse-header">Settings Components:</h6>
                 @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                 <a class="collapse-item" href="{{route('general')}}">General Settings</a>
-                <a class="collapse-item" href="{{route('payment')}}">Payment Settings</a>
                 @endif
+                @if (Auth::user()->role == 1)
+                <a class="collapse-item" href="{{route('payment')}}">Payment Settings</a>
                 <a class="collapse-item" href="{{route('email')}}">Email Settings</a>
-                <a class="collapse-item" href="{{route('password')}}">Change Password</a>               
+                @endif
+                <a class="collapse-item" href="{{route('password')}}">Change Password</a>
             </div>
         </div>
     </li>

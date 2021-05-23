@@ -125,26 +125,6 @@
             <div class="col-md-6">
                 <div class="p-4">
                     <div class="form-group row">
-                        <label class="control-label col-md-4">Gender
-                            <span class="required text-danger"> * </span>
-                        </label>
-                        <div class="col-md-8">
-                            <select class="form-control  @error('gender') is-invalid @enderror" name="gender">
-                                <option value="" disabled>-----Select Gender-----</option>
-                                <option value="Male" @if($employee->gender=='Male')selected @endif>Male</option>
-                                <option value="Female" @if($employee->gender=='Female')selected @endif>Female</option>
-                                <option value="Others" @if($employee->gender=='Others')selected @endif>Others</option>
-                            </select>
-                            @error('gender')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{$message}}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row">
                         <label class="control-label col-md-4">Department
                             <span class="required text-danger"> * </span>
                         </label>

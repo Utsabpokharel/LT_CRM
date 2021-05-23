@@ -24,7 +24,7 @@
             <div class="col-md-12">
                 <div class="p-4">
                     <div class="form-group row">
-                        <label class="control-label col-md-2">user_id
+                        <label class="control-label col-md-2">User Email
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-6">
@@ -32,15 +32,15 @@
                                 value="{{old('user_id','')}}">
                                 <option value="{{old('user_id',$banks->user_id)}}" selected>{{$banks->user_id}}
                                 </option>
-                                <option class="bg-info" disabled>-----Select a Person-----
+                                <option class="bg-info" disabled>-----Select User Email-----
                                 </option>
                                 @foreach($employee as $employees)
-                                <option value="{{$employees->id}}">
-                                    {{$employees->firstname}} {{$employees->lastname}}</option>
+                                <option value="{{$employees->email}}">
+                                    {{$employees->email}}</option>
                                 @endforeach
                                 @foreach($customer as $customers)
-                                <option value="{{$customers->id}}">{{$customers->firstname}}
-                                    {{$customers->lastname}}
+                                <option value="{{$customers->email}}">
+                                    {{$customers->email}}
                                 </option>
                                 @endforeach
                             </select>
