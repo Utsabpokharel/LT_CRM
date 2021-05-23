@@ -18,7 +18,6 @@ class CreateEmployeesTable extends Migration
             $table->string('employee_id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('gender');
             $table->string('photo')->nullable();
             $table->string('email')->unique();
             $table->string('pan');

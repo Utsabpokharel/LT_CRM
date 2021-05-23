@@ -18,7 +18,7 @@ class BankAccountsController extends Controller
     public function index()
     {
         $banks = BankAccount::all();
-        return view('Profile.BankAccount.view',compact('banks'));
+        return view('Profile.BankAccount.view', compact('banks'));
     }
 
     /**
@@ -30,7 +30,7 @@ class BankAccountsController extends Controller
     {
         $employee = Employee::all();
         $customer = Customer::all();
-        return view('Profile.BankAccount.add',compact('employee','customer'));
+        return view('Profile.BankAccount.add', compact('employee', 'customer'));
     }
 
     /**
@@ -42,10 +42,10 @@ class BankAccountsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'account_holder' =>'required',
-            'user_id'=>'required',
+            'account_holder' => 'required',
+            'user_id' => 'required',
             'account_number' => 'required',
-            'bank_name'=>'required',
+            'bank_name' => 'required',
             'branch' => 'required',
         ]);
 
@@ -76,7 +76,7 @@ class BankAccountsController extends Controller
         $banks = BankAccount::findOrFail($id);
         $employee = Employee::all();
         $customer = Customer::all();
-        return view('Profile.BankAccount.edit',compact('employee','customer','banks'));
+        return view('Profile.BankAccount.edit', compact('employee', 'customer', 'banks'));
     }
 
     /**
@@ -90,10 +90,10 @@ class BankAccountsController extends Controller
     {
         $banks = BankAccount::find($id);
         $request->validate([
-            'account_holder' =>'required',
-            'user_id'=>'required',
+            'account_holder' => 'required',
+            'user_id' => 'required',
             'account_number' => 'required',
-            'bank_name'=>'required',
+            'bank_name' => 'required',
             'branch' => 'required',
         ]);
         $banks->account_holder = $request->account_holder;

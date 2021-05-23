@@ -23,8 +23,9 @@ Route::any('/login', 'Auth\LoginController@login')->name('login');
 Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::any('/home', 'HomeController@index')->name('home');
  //dashboard
-Route::any('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
+
 Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']] ,function(){
+    Route::any('/dashboard', 'DashboardController@index')->name('dashboard');
     //users
     Route::resource('user',AllUsersController::class);
     //employee
@@ -42,7 +43,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']] ,fu
     //roles
     Route::resource('role',RolesController::class);
 });
-Route::group(['prefix'=>'admin','namespace'=>'Leaves'] ,function(){
+Route::group(['prefix'=>'admin','namespace'=>'Leaves','middleware'=>['auth']] ,function(){
     //leaves
     Route::resource('leave',LeavesController::class);
     //pending
@@ -57,7 +58,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Leaves'] ,function(){
     //leave type
     Route::resource('leaveType',LeaveTypesController::class);
 });
-Route::group(['prefix'=>'admin','namespace'=>'Task'] ,function(){
+Route::group(['prefix'=>'admin','namespace'=>'Task','middleware'=>['auth']] ,function(){
     //todos
     Route::resource('todo',ToDosController::class);
     //pending
@@ -73,7 +74,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Task'] ,function(){
     //received tasks
     Route::get('/receivedTasks','ToDosController@received')->name('received');
 });
-Route::group(['prefix'=>'admin','namespace'=>'Enquiry'] ,function(){
+Route::group(['prefix'=>'admin','namespace'=>'Enquiry','middleware'=>['auth']] ,function(){
     //enquiry source
     Route::resource('enquirysource',EnquirySourcesController::class);
     //enquiry category
@@ -83,7 +84,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Enquiry'] ,function(){
     //enquiry response
     Route::resource('enquiryresponse',EnquiryResponsesController::class);
 });
-Route::group(['prefix'=>'admin','namespace'=>'Account'] ,function(){
+Route::group(['prefix'=>'admin','namespace'=>'Account','middleware'=>['auth']] ,function(){
     //income
     Route::resource('income',IncomesController::class);
     //income category
@@ -99,7 +100,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Account'] ,function(){
      //invoices
     Route::resource('invoice',InvoicesController::class);
 });
-Route::group(['prefix'=>'admin','namespace'=>'Setting'] ,function(){
+Route::group(['prefix'=>'admin','namespace'=>'Setting','middleware'=>['auth']] ,function(){
     //general
     Route::get('general-setting', 'GeneralSettingsController@index')->name('general');
     //password
@@ -109,7 +110,23 @@ Route::group(['prefix'=>'admin','namespace'=>'Setting'] ,function(){
     //email
     Route::get('email', 'EmailSettingsController@index')->name('email');
 });
-Route::group(['prefix'=>'admin','namespace'=>'Profile'] ,function(){
+Route::group(['prefix'=>'admin','namespace'=>'Profile','middleware'=>['auth']] ,function(){
     //bank account
     Route::resource('bankaccount',BankAccountsController::class);
+    //profile 
+    Route::get('My-Profile','ProfileController@index')->name('profile');
+    Route::get('Update-Profile','ProfileController@update')->name('updateprofile');
+    //personal details
+    Route::any('Personal-Details','PersonalDetailsController@store')->name('personal.store');
+    Route::any('Edit-Personal-Details/{id}','PersonalDetailsController@edit')->name('personal.edit');
+    Route::any('Update-Personal-Details/{id}','PersonalDetailsController@update')->name('personal.update');
+    //work details
+    Route::any('Work-Details','WorkDetailsController@store')->name('work.store');
+    Route::any('Edit-Work-Details/{id}','WorkDetailsController@edit')->name('work.edit');
+    Route::any('Update-Work-Details/{id}','WorkDetailsController@update')->name('work.update');
+    //education details
+    Route::any('Education-Details','EducationDetailsController@store')->name('education.store');
+    Route::any('Edit-Education-Details/{id}','EducationDetailsController@edit')->name('education.edit');
+    Route::any('Update-Education-Details/{id}','EducationDetailsController@update')->name('education.update');
+
 });

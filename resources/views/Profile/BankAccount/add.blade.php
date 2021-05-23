@@ -23,21 +23,20 @@
             <div class="col-md-12">
                 <div class="p-4">
                     <div class="form-group row">
-                        <label class="control-label col-md-2">user_id
+                        <label class="control-label col-md-2">User Email
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-6">
                             <select class="form-control  @error('user_id') is-invalid @enderror" name="user_id"
                                 value="{{old('user_id','')}}">
-                                <option class="{{old('user_id','')}}" disabled selected>-----Select a Person-----
+                                <option class="{{old('user_id','')}}" disabled selected>-----Select User Email-----
                                 </option>
                                 @foreach($employee as $employees)
-                                <option value="{{$employees->id}}">
-                                    {{$employees->firstname}} {{$employees->lastname}}</option>
+                                <option value="{{$employees->email}}">
+                                    {{$employees->email}}</option>
                                 @endforeach
                                 @foreach($customer as $customers)
-                                <option value="{{$customers->id}}">{{$customers->firstname}}
-                                    {{$customers->lastname}}
+                                <option value="{{$customers->email}}">{{$customers->email}}
                                 </option>
                                 @endforeach
                             </select>

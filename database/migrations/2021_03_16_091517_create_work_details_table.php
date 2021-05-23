@@ -15,6 +15,10 @@ class CreateWorkDetailsTable extends Migration
     {
         Schema::create('work_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->longText('experiences');
+            $table->longText('skills');
+            $table->longText('projects'); 
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
