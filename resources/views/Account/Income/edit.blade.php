@@ -29,7 +29,7 @@
                         <div class="col-md-8">
                             <select class="form-control  @error('incomecategory') is-invalid @enderror"
                                 name="incomecategory">
-                                <option value="{{$income->incomecategory}}" selected>{{$income->incomecategory}}
+                                <option value="{{$income->incomecategory}}" selected>{{$income->category->categoryname}}
                                 </option>
                                 <option class="bg-info" disabled>-----Select Income Category-----</option>
                                 @foreach($incomecategory as $category)
@@ -170,7 +170,7 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" class="form-control" value="899" required readonly name="entry_by" />
+        <input type="hidden" class="form-control" value="{{Auth::user()->id}}" required readonly name="entry_by" />
         <div class="form-actions p-3">
             <div class="row">
                 <div class="offset-md-3 col-md-9">

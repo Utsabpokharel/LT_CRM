@@ -19,7 +19,7 @@ class EnquiryController extends Controller
     public function index()
     {
         $enquiry = Enquiry::orderBy('id', 'desc')->get();
-        return view('Enquiry.Enquiries.view',compact('enquiry'));
+        return view('Enquiry.Enquiries.view', compact('enquiry'));
     }
 
     /**
@@ -29,10 +29,10 @@ class EnquiryController extends Controller
      */
     public function create()
     {
-       $customer = Customer::all();
-       $category = EnquiryCategory::all();
-       $source = EnquirySource::all();
-       return view('Enquiry.Enquiries.add',compact('customer','category','source'));
+        $customer = Customer::all();
+        $category = EnquiryCategory::all();
+        $source = EnquirySource::all();
+        return view('Enquiry.Enquiries.add', compact('customer', 'category', 'source'));
     }
 
     /**
@@ -70,7 +70,8 @@ class EnquiryController extends Controller
      */
     public function show($id)
     {
-        //
+        $enquiry = Enquiry::findorfail($id);
+        return view('Enquiry.Enquiries.details', compact('enquiry'));
     }
 
     /**

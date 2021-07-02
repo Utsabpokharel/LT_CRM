@@ -35,10 +35,10 @@ class LeavesController extends Controller
     public function create()
     {
         $leavetype = LeaveType::all();
-        $emp_id = Employee::where('email',Auth::user()->email)->value('employee_id');
+        $emp_id = Employee::where('email', Auth::user()->email)->value('employee_id');
         // dd($emp_id);
         $d = Carbon::now();
-        return view('Leave.Leaves.add', compact('leavetype', 'd','emp_id'));
+        return view('Leave.Leaves.add', compact('leavetype', 'd', 'emp_id'));
     }
 
     /**
@@ -49,7 +49,7 @@ class LeavesController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'leave_type' => 'required',
             'from' => 'required',
             'to' => 'required',
@@ -60,7 +60,7 @@ class LeavesController extends Controller
         // $email = DB::table('all_users')->where('role_id', '1')->select('email')->get();
         // Mail::to($email)->send(new LeaveApplyMail());
         if ($leave) {
-                return redirect()->route('myLeaves')->with('success', 'Leave has been applied Successfully');
+            return redirect()->route('myLeaves')->with('success', 'Leave has been applied Successfully');
         } else {
             return redirect()->back()->with('error', 'Oops!!! some error occurred');
         }
@@ -74,8 +74,10 @@ class LeavesController extends Controller
      */
     public function show($id)
     {
-        // $leave = leave::findOrFail($id);
-        // return view('Admin.Leaves.details', compact('leave'));
+        $leave = Leave::findOrFail($id);
+        $type = LeaveType::all();
+        $employee = Employee::where('employee_id', $leave->employee_id)->first();
+        return view('Leave.Leaves.details', compact('leave', 'employee', 'type'));
     }
 
     /**
@@ -139,7 +141,7 @@ class LeavesController extends Controller
     {
         $leave = Leave::findOrFail($id);
         $leave->status = '1';
-        $leave->checked_by = '22';
+        $leave->checked_by = Auth::user()->id;
         // $leave->checked_by = Auth::user()->id;
         $leave->checked_on = Carbon::now();
         $update = $leave->update();
@@ -157,7 +159,7 @@ class LeavesController extends Controller
     {
         $leave = Leave::findOrFail($id);
         $leave->status = '0';
-        $leave->checked_by = '44';
+        $leave->checked_by = Auth::user()->id;
         // $leave->checked_by = Auth::user()->id;
         $leave->checked_on = Carbon::now();
         $update = $leave->update();

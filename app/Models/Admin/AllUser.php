@@ -10,12 +10,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class AllUser extends Authenticatable
 {
     use Notifiable;
-    
-    protected $fillable = ['username','email','status','password','role'];
-    
+
+    protected $fillable = ['username', 'email', 'status', 'password', 'role'];
+
     protected $hidden = ['password'];
 
-    public function roles(){
-        return $this->belongsTo('App\Models\Admin\Role','role');
+    public function roles()
+    {
+        return $this->belongsTo('App\Models\Admin\Role', 'role');
+    }
+    public function task()
+    {
+        return $this->hasMany('App\Models\Task\ToDo');
     }
 }

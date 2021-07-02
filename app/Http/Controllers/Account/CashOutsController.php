@@ -17,7 +17,7 @@ class CashOutsController extends Controller
     public function index()
     {
         $cashOut = CashOut::all();
-        return view('Account.CashOut.view',compact('cashOut'));
+        return view('Account.CashOut.view', compact('cashOut'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CashOutsController extends Controller
     public function create()
     {
         $employee = Employee::all();
-        return view('Account.CashOut.add',compact('employee'));
+        return view('Account.CashOut.add', compact('employee'));
     }
 
     /**
@@ -39,17 +39,17 @@ class CashOutsController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-            'title' =>'required',
-            'cash_to'=>'required',
-            'amount'=>'required',
-            'date' =>'required',
-            'mode'=>'required',
-            'cashout_by'=>'required',
-            'description'=>'required',
+        $request->validate([
+            'title' => 'required',
+            'cash_to' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+            'mode' => 'required',
+            'cashout_by' => 'required',
+            'description' => 'required',
         ]);
         $data = $request->all();
-        $cashOut= CashOut::create($data);
+        $cashOut = CashOut::create($data);
         return redirect()->route('cashOut.index')->with('success', 'CashOut added sucessfully');
     }
 
@@ -61,7 +61,8 @@ class CashOutsController extends Controller
      */
     public function show($id)
     {
-        //
+        $cashOut = CashOut::findOrFail($id);
+        return view('Account.CashOut.details', compact('cashOut'));
     }
 
     /**
@@ -74,7 +75,7 @@ class CashOutsController extends Controller
     {
         $cashOut = CashOut::findOrFail($id);
         $employee = Employee::all();
-        return view('Account.CashOut.edit',compact('employee','cashOut'));
+        return view('Account.CashOut.edit', compact('employee', 'cashOut'));
     }
 
     /**
@@ -86,15 +87,15 @@ class CashOutsController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $cashOut = CashOut::findOrFail($id);
+        $cashOut = CashOut::findOrFail($id);
         $request->validate([
-            'title' =>'required',
-            'cash_to'=>'required',
-            'amount'=>'required',
-            'date' =>'required',
-            'mode'=>'required',
-            'cashout_by'=>'required',
-            'description'=>'required',
+            'title' => 'required',
+            'cash_to' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+            'mode' => 'required',
+            'cashout_by' => 'required',
+            'description' => 'required',
         ]);
         $cashOut->title = $request->title;
         $cashOut->cash_to = $request->cash_to;

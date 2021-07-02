@@ -77,7 +77,8 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::findorfail($id);
+        return view('Admin.Customer.details', compact('customer'));
     }
 
     /**

@@ -18,7 +18,7 @@ class ExpensesController extends Controller
     public function index()
     {
         $expense = Expense::all();
-        return view('Account.Expense.view',compact('expense'));
+        return view('Account.Expense.view', compact('expense'));
     }
 
     /**
@@ -28,9 +28,9 @@ class ExpensesController extends Controller
      */
     public function create()
     {
-        $expensecategory=ExpenseCategory::all();
+        $expensecategory = ExpenseCategory::all();
         $employee = Employee::all();
-        return view('Account.Expense.add',compact('expensecategory','employee'));
+        return view('Account.Expense.add', compact('expensecategory', 'employee'));
     }
 
     /**
@@ -42,16 +42,16 @@ class ExpensesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'expensecategory' =>'required',
-            'particular'=>'required',
-            'amount'=>'required',
-            'date' =>'required',
-            'mode'=>'required',
-            'paid_by'=>'required',
-            'paid_to'=>'required',
+            'expensecategory' => 'required',
+            'particular' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+            'mode' => 'required',
+            'paid_by' => 'required',
+            'paid_to' => 'required',
         ]);
         $data = $request->all();
-        $expense= Expense::create($data);
+        $expense = Expense::create($data);
         return redirect()->route('expense.index')->with('success', 'Expense added sucessfully');
     }
 
@@ -63,7 +63,8 @@ class ExpensesController extends Controller
      */
     public function show($id)
     {
-        //
+        $expense = Expense::findOrFail($id);
+        return view('Account.Expense.details', compact('expense'));
     }
 
     /**
@@ -75,9 +76,9 @@ class ExpensesController extends Controller
     public function edit($id)
     {
         $expense = Expense::findOrFail($id);
-        $expensecategory=ExpenseCategory::all();
+        $expensecategory = ExpenseCategory::all();
         $employee = Employee::all();
-        return view('Account.Expense.edit',compact('expensecategory','employee','expense'));
+        return view('Account.Expense.edit', compact('expensecategory', 'employee', 'expense'));
     }
 
     /**
@@ -91,13 +92,13 @@ class ExpensesController extends Controller
     {
         $expense = Expense::findOrFail($id);
         $request->validate([
-            'expensecategory' =>'required',
-            'particular'=>'required',
-            'amount'=>'required',
-            'date' =>'required',
-            'mode'=>'required',
-            'paid_by'=>'required',
-            'paid_to'=>'required',
+            'expensecategory' => 'required',
+            'particular' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+            'mode' => 'required',
+            'paid_by' => 'required',
+            'paid_to' => 'required',
         ]);
         $expense->expensecategory = $request->expensecategory;
         $expense->particular = $request->particular;

@@ -51,9 +51,9 @@
                     <tbody class="text-center">
                         <tr>
                             <th>{{$loop->index+1}}</th>
-                            <td>{{$expenses->expensecategory}}</td>
+                            <td>{{$expenses->category->categoryname}}</td>
                             <td>{{$expenses->date}}</td>
-                            <td>{{$expenses->particular}}</td>
+                            <td><a href="{{ route('expense.show',$expenses->id) }}">{{$expenses->particular}}</a></td>
                             <td>{{$expenses->amount}}</td>
                             <td>
                                 <form action="{{route('expense.edit',$expenses->id)}}" method="GET"

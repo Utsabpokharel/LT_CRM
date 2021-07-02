@@ -54,10 +54,10 @@
                     <tbody class="text-center">
                         <tr>
                             <th>{{$loop->index+1}}</th>
-                            <td>{{$employees->firstname}} {{$employees->lastname}}</td>
+                            <td><a href="{{ route('employee.show',$employees->id) }}">{{$employees->firstname}}
+                                    {{$employees->lastname}}</a></td>
                             @if($employees->photo !=null)
-                            <td><img height="auto" width="200px"
-                                    src="{{asset('Uploads/Employee/Image/'.$employees->photo)}}"></td>
+                            <td><img width="200px" src="{{asset('Uploads/Employee/Image/'.$employees->photo)}}"></td>
                             @else
                             <td><i>Image Not-Uploaded</i></td>
                             @endif

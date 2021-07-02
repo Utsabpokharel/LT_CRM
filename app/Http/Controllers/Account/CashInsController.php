@@ -17,7 +17,7 @@ class CashInsController extends Controller
     public function index()
     {
         $cashIn = CashIn::all();
-        return view('Account.CashIn.view',compact('cashIn'));
+        return view('Account.CashIn.view', compact('cashIn'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CashInsController extends Controller
     public function create()
     {
         $employee = Employee::all();
-        return view('Account.CashIn.add',compact('employee'));
+        return view('Account.CashIn.add', compact('employee'));
     }
 
     /**
@@ -40,16 +40,16 @@ class CashInsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' =>'required',
-            'cash_from'=>'required',
-            'amount'=>'required',
-            'date' =>'required',
-            'mode'=>'required',
-            'received_by'=>'required',
-            'description'=>'required',
+            'title' => 'required',
+            'cash_from' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+            'mode' => 'required',
+            'received_by' => 'required',
+            'description' => 'required',
         ]);
         $data = $request->all();
-        $cashIn= CashIn::create($data);
+        $cashIn = CashIn::create($data);
         return redirect()->route('cashIn.index')->with('success', 'CashIn added sucessfully');
     }
 
@@ -61,7 +61,8 @@ class CashInsController extends Controller
      */
     public function show($id)
     {
-        //
+        $cashIn = CashIn::findOrFail($id);
+        return view('Account.CashIn.details', compact('cashIn'));
     }
 
     /**
@@ -74,7 +75,7 @@ class CashInsController extends Controller
     {
         $cashIn = CashIn::findOrFail($id);
         $employee = Employee::all();
-        return view('Account.CashIn.edit',compact('employee','cashIn'));
+        return view('Account.CashIn.edit', compact('employee', 'cashIn'));
     }
 
     /**
@@ -88,13 +89,13 @@ class CashInsController extends Controller
     {
         $cashIn = CashIn::findOrFail($id);
         $request->validate([
-            'title' =>'required',
-            'cash_from'=>'required',
-            'amount'=>'required',
-            'date' =>'required',
-            'mode'=>'required',
-            'received_by'=>'required',
-            'description'=>'required',
+            'title' => 'required',
+            'cash_from' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+            'mode' => 'required',
+            'received_by' => 'required',
+            'description' => 'required',
         ]);
         $cashIn->title = $request->title;
         $cashIn->cash_from = $request->cash_from;

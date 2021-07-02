@@ -9,6 +9,7 @@ use App\Models\Admin\Role;
 use App\Models\Admin\Customer;
 use App\Models\Admin\Employee;
 use Illuminate\Support\Facades\Hash;
+use Thebikramlama\Sparrow\Sparrow;
 
 class AllUsersController extends Controller
 {
@@ -21,7 +22,7 @@ class AllUsersController extends Controller
     {
         $user = AllUser::orderBy('id', 'desc')->get();
         // dd($user);
-        return view('Admin.AllUser.view',compact('user'));
+        return view('Admin.AllUser.view', compact('user'));
     }
 
     /**
@@ -32,9 +33,9 @@ class AllUsersController extends Controller
     public function create()
     {
         $role = Role::all();
-        $customer= Customer::all();
+        $customer = Customer::all();
         $employee = Employee::all();
-        return view('Admin.AllUser.add',compact('role','customer','employee'));
+        return view('Admin.AllUser.add', compact('role', 'customer', 'employee'));
     }
 
     /**
@@ -45,13 +46,13 @@ class AllUsersController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-            'username'=>'required|unique:all_users',
-            'email'=>'required|unique:all_users',
-            'password'=>'required',
-            'confirm_password'=>'required|same:password',
-            'status'=>'required',
-            'role'=>'required'
+        $request->validate([
+            'username' => 'required|unique:all_users',
+            'email' => 'required|unique:all_users',
+            'password' => 'required',
+            'confirm_password' => 'required|same:password',
+            'status' => 'required',
+            'role' => 'required'
         ]);
 
         $data = $request->except('confirm_password');
@@ -59,6 +60,7 @@ class AllUsersController extends Controller
         $password = Hash::make($request->password);
         $data['password'] = $password;
         $user = AllUser::create($data);
+
         return redirect()->route('user.index')->with('success', 'User added sucessfully');
     }
 
@@ -70,7 +72,8 @@ class AllUsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = AllUser::findorfail($id);
+        return view('Admin.AllUser.details', compact('user'));
     }
 
     /**
@@ -82,10 +85,10 @@ class AllUsersController extends Controller
     public function edit($id)
     {
         $role = Role::all();
-        $customer= Customer::all();
+        $customer = Customer::all();
         $employee = Employee::all();
         $user = AllUser::findorfail($id);
-        return view('Admin.AllUser.edit', compact('user','role','customer','employee'));
+        return view('Admin.AllUser.edit', compact('user', 'role', 'customer', 'employee'));
     }
 
     /**
@@ -98,11 +101,11 @@ class AllUsersController extends Controller
     public function update(Request $request, $id)
     {
         $user = AllUser::find($id);
-       $request->validate([
-            'username'=>'required',
-            'email'=>'required',
-            'status'=>'required',
-            'role'=>'required'
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required',
+            'status' => 'required',
+            'role' => 'required'
         ]);
         $user->username = $request->username;
         $user->email = $request->email;

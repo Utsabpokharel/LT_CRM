@@ -54,7 +54,8 @@
                     <tbody class="text-center">
                         <tr>
                             <th>{{$loop->index+1}}</th>
-                            <td>{{$customers->firstname}} {{$customers->lastname}}</td>
+                            <td><a href="{{ route('customer.show',$customers->id) }}">{{$customers->firstname}}
+                                    {{$customers->lastname}}</a></td>
                             @if($customers->photo !=null)
                             <td><img height="auto" width="200px"
                                     src="{{asset('Uploads/Customer/Image/'.$customers->photo)}}"></td>

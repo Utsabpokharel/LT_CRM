@@ -90,7 +90,8 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::findorfail($id);
+        return view('Admin.Employee.details', compact('employee'));
     }
 
     /**

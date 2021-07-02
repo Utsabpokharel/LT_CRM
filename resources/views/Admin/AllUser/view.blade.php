@@ -52,7 +52,7 @@
                         <tr>
                             <th>{{$loop->index+1}}</th>
                             <td>{{$users->email}}</td>
-                            <td>{{$users->username}}</td>
+                            <td><a href="{{route('user.show',$users->id) }}">{{$users->username}}</a></td>
                             <td>{{$users->roles['name']}}</td>
                             @if($users->status==1)
                             <td>
