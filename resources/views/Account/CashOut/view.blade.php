@@ -53,7 +53,7 @@
                             <th>{{$loop->index+1}}</th>
                             <td>{{$cashOuts->cash_to}}</td>
                             <td>{{$cashOuts->date}}</td>
-                            <td>{{$cashOuts->title}}</td>
+                            <td><a href="{{ route('cashOut.show', $cashOuts->id) }}">{{$cashOuts->title}}</a></td>
                             <td>{{$cashOuts->amount}}</td>
                             <td>
                                 <form action="{{route('cashOut.edit',$cashOuts->id)}}" method="GET"

@@ -58,11 +58,12 @@
                         <tr>
                             <th>{{$loop->index+1}}</th>
                             @if($enquiry->is_customer=='Yes')
-                            <td>{{$enquiry->customer->firstname}} {{$enquiry->customer->lastname}}</td>
+                            <td><a href="{{ route('enquiry.show',$enquiry->id) }}">{{$enquiry->customer->firstname}}
+                                    {{$enquiry->customer->lastname}}</a></td>
                             <td>{{$enquiry->customer->email}}</td>
                             <td>{{$enquiry->customer->contact_number}}</td>
                             @else
-                            <td>{{$enquiry->name}}</td>
+                            <td><a href="{{ route('enquiry.show',$enquiry->id) }}">{{$enquiry->name}}</a></td>
                             <td>{{$enquiry->email}}</td>
                             <td>{{$enquiry->phone}}</td>
                             @endif

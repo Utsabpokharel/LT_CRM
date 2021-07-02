@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\AllUser;
 use Illuminate\Http\Request;
 use App\Models\Admin\Employee;
+use App\Models\Admin\Role;
 use App\Models\Task\ToDo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -102,7 +103,9 @@ class ToDosController extends Controller
      */
     public function show($id)
     {
-        //
+        $todo = ToDo::findOrFail($id);
+        $d = Carbon::now();
+        return view('Task.details', compact('d', 'todo'));
     }
 
     /**
@@ -116,7 +119,7 @@ class ToDosController extends Controller
         $d = Carbon::now();
         $employee = Employee::all();
         $todo = ToDo::findOrFail($id);
-        return view('Task.Edit', compact('d', 'employee', 'todo'));
+        return view('Task.edit', compact('d', 'employee', 'todo'));
     }
 
     /**
@@ -246,72 +249,71 @@ class ToDosController extends Controller
         return view('Task.view', compact('todo'));
     }
 
-    // public function reaassign($id)
-    // {
-    //     $d = Carbon::now();
+    public function reaassign($id)
+    {
+        $d = Carbon::now();
 
-    //     $todo = toDo::findOrFail($id);
-    //     $superAdmin = role::where('name', '=', 'super_admin')->first();
-    //     $employee = role::where('name', '=', 'employee')->first();
+        $todo = ToDo::findOrFail($id);
+        $superAdmin = AllUser::where('role', '1')->get();
 
-    //     $superAdmin = allUser::where('role_id', '=', $superAdmin->id)->get();
-    //     $employee = allUser::where('role_id', '=', $employee->id)->get();
+        // dd($employees);
+        // dd($superAdmin);
 
-    //     return view('Admin.Task.reAssign', compact('d', 'superAdmin', 'employee', 'todo'));
-    // }
-    // public function editreaassign($id)
-    // {
-    //     $d = Carbon::now();
-    //     // $this->toDo = $this->toDo->find($id);
-    //     $todo = toDo::findOrFail($id);
-    //     $superAdmin = role::where('name', '=', 'super_admin')->first();
-    //     $employee = role::where('name', '=', 'employee')->first();
+        $employee = Employee::all();
 
-    //     $superAdmin = allUser::where('role_id', '=', $superAdmin->id)->get();
-    //     $employee = allUser::where('role_id', '=', $employee->id)->get();
+        return view('Task.reAssign', compact('d', 'superAdmin', 'employee', 'todo'));
+    }
+    public function editreaassign($id)
+    {
+        $d = Carbon::now();
+        $todo = ToDo::findOrFail($id);
+        $superAdmin = AllUser::where('role', '1')->get();
+        $employees = Employee::all();
 
-    //     return view('Admin.Task.edit-reAssign', compact('d', 'superAdmin', 'employee', 'todo'));
-    // }
-    // public function updateReassign(Request $request, $id)
-    // {
-    //     $user = @Auth::user();
-    //     $d = Carbon::now();
-    //     $todo = toDo::findOrFail($id);
-    //     $todo->status = 0;
-    //     $todo->reAssignedTo = $request->reAssignedTo;
-    //     $todo->reAssignedDate = $request->reAssignedDate;
-    //     $todo->reDeadline = $request->reDeadline;
-    //     $todo->ReAssignedBy = $request->ReAssignedBy;
-    //     $todo->reason = $request->reason;
-    //     $update = $todo->update();
-    //     if ($update) {
-    //         $assigned_usr = $todo->reAssignedTo;
-    //         $assig_user = allUser::find($assigned_usr);
-    //         Mail::to($assig_user->email)->send(new TaskMail());
-    //         return redirect()->route('assignTask', compact('d'))->with('success', 'Re-Assigned Task Updated Successfully !!!');
-    //     } else {
-    //         request()->redirect()->back()->with('error', 'sorry there was an error!!!');
-    //     }
-    // }
-    //     public function ReAssign(Request $request, $id, allUser $thread)
-    //     {
-
-    //         $user = @Auth::user();
-    //         $d = Carbon::now();
-    //         $todo = toDo::findOrFail($id);
-    //         $todo->status = 0;
-    //         $todo->reAssignedTo = $request->reAssignedTo;
-    //         $todo->reAssignedDate = $request->reAssignedDate;
-    //         $todo->reDeadline = $request->reDeadline;
-    //         $todo->ReAssignedBy = $request->ReAssignedBy;
-    //         $update = $todo->update();
-    //         if ($update) {
-    //             $assigned_usr = $todo->reAssignedTo;
-    //             $assig_user = allUser::find($assigned_usr);
-    //             Mail::to($assig_user->email)->send(new TaskMail());
-    //             return redirect()->route('task.index', compact('d'))->with('success', 'Task Re-Assigned Successfully !!!');
-    //         } else {
-    //             request()->session()->flash('error', 'sorry there was an error Re_Assigning Task');
-    //         }
-    //     }
+        return view('Task.edit-reAssign', compact('d', 'superAdmin', 'employees', 'todo'));
+    }
+    public function updateReassign(Request $request, $id)
+    {
+        $user = @Auth::user();
+        $d = Carbon::now();
+        $todo = ToDo::findOrFail($id);
+        $todo->status = 0;
+        $todo->reAssignedTo = $request->reAssignedTo;
+        $todo->reAssignedDate = $request->reAssignedDate;
+        $todo->reDeadline = $request->reDeadline;
+        $todo->ReAssignedBy = $request->ReAssignedBy;
+        $todo->ReUser_id = $request->ReUser_id;
+        $todo->reason = $request->reason;
+        $update = $todo->update();
+        if ($update) {
+            $assigned_usr = $todo->reAssignedTo;
+            $assig_user = AllUser::find($assigned_usr);
+            // Mail::to($assig_user->email)->send(new TaskMail());
+            return redirect()->route('todo.index', compact('d'))->with('success', 'Re-Assigned Task Updated Successfully !!!');
+        } else {
+            request()->redirect()->back()->with('error', 'sorry there was an error!!!');
+        }
+    }
+    public function ReAssign(Request $request, $id, AllUser $thread)
+    {
+        $user = @Auth::user();
+        $d = Carbon::now();
+        $todo = ToDo::findOrFail($id);
+        $todo->status = 0;
+        $todo->reAssignedTo = $request->reAssignedTo;
+        $todo->reAssignedDate = $request->reAssignedDate;
+        $todo->reDeadline = $request->reDeadline;
+        $todo->ReAssignedBy = $request->ReAssignedBy;
+        $todo->ReUser_id = $request->ReUser_id;
+        $todo->reason = $request->reason;
+        $update = $todo->update();
+        if ($update) {
+            $assigned_usr = $todo->reAssignedTo;
+            $assig_user = AllUser::find($assigned_usr);
+            // Mail::to($assig_user->email)->send(new TaskMail());
+            return redirect()->route('todo.index', compact('d'))->with('success', 'Task Re-Assigned Successfully !!!');
+        } else {
+            request()->session()->flash('error', 'sorry there was an error Re-Assigning Task');
+        }
+    }
 }

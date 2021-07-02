@@ -51,7 +51,7 @@
                     <tbody class="text-center">
                         <tr>
                             <th>{{$loop->index+1}}</th>
-                            <td>{{$task->title}}</td>
+                            <td><a href="{{ route('todo.show', $task->id) }}">{{$task->title}}</a></td>
                             <td>{{$task->deadline}}</td>
                             <td>{{$task->task_priority}}</td>
                             <td>
@@ -93,7 +93,7 @@
 
                                         <li>
                                             <a href="javascript:;">
-                                                <form action="#" method="post">
+                                                <form action="{{route('reaassign',$task->id)}}" method="post">
                                                     {{csrf_field()}}
                                                     <input type="hidden" name="_method" value="PUT">
                                                     <button class="btn btn-info" type="submit">
@@ -110,8 +110,18 @@
                             <td>
                                 @if($task->status==1)
 
-                                <a href="#" class="btn-success btn-sm" type="submit"><span class="fa fa-eye"></span></a>
+                                <a href="{{ route('todo.show', $task->id) }}" class="btn-success btn-sm"
+                                    type="submit"><span class="fa fa-eye"></span></a>
 
+                                @else
+                                @if ($task->ReUser_id !=[])
+                                <form action="{{route('editre-assign',$task->id)}}" method="GET"
+                                    style="display: inline-block">
+                                    {{csrf_field()}}
+                                    {{method_field('PUT')}}
+                                    <button class="btn btn-primary btn-sm" type="submit"><span
+                                            class="fa fa-edit"></span></button>
+                                </form>
                                 @else
                                 <form action="{{route('todo.edit',$task->id)}}" method="GET"
                                     style="display: inline-block">
@@ -120,6 +130,7 @@
                                     <button class="btn btn-primary btn-sm" type="submit"><span
                                             class="fa fa-edit"></span></button>
                                 </form>
+                                @endif
                                 <form action="{{ route('todo.destroy', $task->id)}}" method="post"
                                     style="display: inline-block">
                                     {{csrf_field()}}

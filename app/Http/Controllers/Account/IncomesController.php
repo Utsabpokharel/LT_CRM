@@ -18,7 +18,7 @@ class IncomesController extends Controller
     public function index()
     {
         $income = Income::all();
-        return view('Account.Income.view',compact('income'));
+        return view('Account.Income.view', compact('income'));
     }
 
     /**
@@ -28,9 +28,9 @@ class IncomesController extends Controller
      */
     public function create()
     {
-        $incomecategory=IncomeCategory::all();
+        $incomecategory = IncomeCategory::all();
         $employee = Employee::all();
-       return view('Account.Income.add',compact('incomecategory','employee'));
+        return view('Account.Income.add', compact('incomecategory', 'employee'));
     }
 
     /**
@@ -42,16 +42,16 @@ class IncomesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'incomecategory' =>'required',
-            'particular'=>'required',
-            'amount'=>'required',
-            'date' =>'required',
-            'mode'=>'required',
-            'paid_by'=>'required',
-            'received_by'=>'required',
+            'incomecategory' => 'required',
+            'particular' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+            'mode' => 'required',
+            'paid_by' => 'required',
+            'received_by' => 'required',
         ]);
         $data = $request->all();
-        $income= Income::create($data);
+        $income = Income::create($data);
         return redirect()->route('income.index')->with('success', 'Income  added sucessfully');
     }
 
@@ -63,7 +63,8 @@ class IncomesController extends Controller
      */
     public function show($id)
     {
-        //
+        $income = Income::findOrFail($id);
+        return view('Account.Income.details', compact('income'));
     }
 
     /**
@@ -75,9 +76,9 @@ class IncomesController extends Controller
     public function edit($id)
     {
         $income = Income::findOrFail($id);
-        $incomecategory=IncomeCategory::all();
+        $incomecategory = IncomeCategory::all();
         $employee = Employee::all();
-        return view('Account.Income.edit',compact('incomecategory','employee','income'));
+        return view('Account.Income.edit', compact('incomecategory', 'employee', 'income'));
     }
 
     /**
@@ -91,13 +92,13 @@ class IncomesController extends Controller
     {
         $income = Income::findOrFail($id);
         $request->validate([
-            'incomecategory' =>'required',
-            'particular'=>'required',
-            'amount'=>'required',
-            'date' =>'required',
-            'mode'=>'required',
-            'paid_by'=>'required',
-            'received_by'=>'required',
+            'incomecategory' => 'required',
+            'particular' => 'required',
+            'amount' => 'required',
+            'date' => 'required',
+            'mode' => 'required',
+            'paid_by' => 'required',
+            'received_by' => 'required',
         ]);
         $income->incomecategory = $request->incomecategory;
         $income->particular = $request->particular;
