@@ -28,10 +28,10 @@
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-8">
-                            <input type="text" name="employee_id" required placeholder="Enter Employee ID"
-                                id="exampleInputEmail" class="form-control  @error('employee_id') is-invalid @enderror"
-                                value="{{old('employee_id',$employee->employee_id)}}" />
-                            @error('employee_id')
+                            <input type="text" name="staff_id" required placeholder="Enter Staff ID"
+                                id="exampleInputEmail" class="form-control  @error('staff_id') is-invalid @enderror"
+                                value="{{old('staff_id',$employee->staff_id)}}" />
+                            @error('staff_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>
                             </span>

@@ -46,7 +46,7 @@ class EmployeesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'employee_id' => 'required',
+            'staff_id' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required|unique:employees',
@@ -57,25 +57,29 @@ class EmployeesController extends Controller
             'level' => 'required',
             'department' => 'required',
         ]);
-        $employee = new Employee([
-            'employee_id' => $request->employee_id,
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'department' => $request->department,
-            'title' => $request->title,
-            'level' => $request->level,
-            'pan' => $request->pan,
-            'contact_number' => $request->contact_number,
-        ]);
+        // $employee = new Employee([
+        //     'staff_id' => $request->employee_id,
+        //     'firstname' => $request->firstname,
+        //     'lastname' => $request->lastname,
+        //     'email' => $request->email,
+        //     'department' => $request->department,
+        //     'level' => $request->level,
+        //     'pan' => $request->pan,
+        //     'contact_number' => $request->contact_number,
+        // ]);
+        $data = $request->all();
+        // $employee->title()->attach($request->title);
+        $data['title'] = $data['title'][0];
+
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
             $name = "Employee-" . time() . '.' . $image->getClientOriginalExtension();
             $image->move('Uploads/Employee/Image/', $name);
-            $employee->photo = $name;
+            $data['photo'] = $name;
         }
-        $data = $employee->save();
-        if ($data) {
+        $staff = Employee::create($data);
+        $staff->title()->sync($request->title);
+        if ($staff) {
             return redirect()->route('employee.index')->with('success', 'Employee added successfully');
         } else {
             return redirect()->back()->with('error', 'Oops!!! some error occurred');
@@ -90,6 +94,7 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
+        // $title = Title::all();
         $employee = Employee::findorfail($id);
         return view('Admin.Employee.details', compact('employee'));
     }
@@ -120,7 +125,7 @@ class EmployeesController extends Controller
     {
         $employee = Employee::find($id);
         $request->validate([
-            'employee_id' => 'required',
+            'staff_id' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required',
@@ -131,7 +136,7 @@ class EmployeesController extends Controller
             'level' => 'required',
             'department' => 'required',
         ]);
-        $employee->employee_id = $request->employee_id;
+        $employee->staff_id = $request->staff_id;
         $employee->firstname = $request->firstname;
         $employee->lastname = $request->lastname;
         $employee->email = $request->email;

@@ -393,11 +393,11 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Settings Components:</h6>
                 @if(Auth::user()->role == 1 || Auth::user()->role == 2)
-                <a class="collapse-item" href="{{route('general')}}">General Settings</a>
+                {{-- <a class="collapse-item" href="{{route('general')}}">General Settings</a> --}}
                 @endif
                 @if (Auth::user()->role == 1)
-                <a class="collapse-item" href="{{route('payment')}}">Payment Settings</a>
-                <a class="collapse-item" href="{{route('email')}}">Email Settings</a>
+                {{-- <a class="collapse-item" href="{{route('payment')}}">Payment Settings</a>
+                <a class="collapse-item" href="{{route('email')}}">Email Settings</a> --}}
                 @endif
                 <a class="collapse-item" href="{{route('password')}}">Change Password</a>
             </div>

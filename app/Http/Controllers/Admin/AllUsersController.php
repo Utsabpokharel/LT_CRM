@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewUser;
 use Illuminate\Http\Request;
 use App\Models\Admin\AllUser;
 use App\Models\Admin\Role;
 use App\Models\Admin\Customer;
 use App\Models\Admin\Employee;
+use App\Notifications\UserNotify;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Thebikramlama\Sparrow\Sparrow;
 
 class AllUsersController extends Controller
@@ -44,7 +48,7 @@ class AllUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, AllUser $thread)
     {
         $request->validate([
             'username' => 'required|unique:all_users',
@@ -60,7 +64,17 @@ class AllUsersController extends Controller
         $password = Hash::make($request->password);
         $data['password'] = $password;
         $user = AllUser::create($data);
-
+        //mail
+        Mail::to($user->email)->send(new NewUser);
+        //notifications
+        $usr = AllUser::where('role', '1')->get();
+        $thread = [
+            'added_to' => $request->username,
+            'added_by' => Auth::user()->username,
+        ];
+        foreach ($usr as $user) {
+            $user->notify(new UserNotify($thread));
+        }
         return redirect()->route('user.index')->with('success', 'User added sucessfully');
     }
 

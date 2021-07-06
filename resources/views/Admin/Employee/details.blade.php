@@ -36,7 +36,7 @@
                 <label class="control-label col-md-2">Employee Id :
                 </label>
                 <div class="col-md-6">
-                    {{$employee->employee_id}}
+                    {{$employee->staff_id}}
                 </div>
             </div>
             <hr>

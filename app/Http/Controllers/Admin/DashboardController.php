@@ -12,6 +12,7 @@ use App\Models\Enquiry\Enquiry;
 use App\Models\Leaves\Leave;
 use App\Models\Task\ToDo;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -50,5 +51,10 @@ class DashboardController extends Controller
             'assigned',
             'received'
         ));
+    }
+    public function notifications()
+    {
+        $notify = DB::table('notifications')->get();
+        return view('Admin.Layout.master', compact('notify'));
     }
 }

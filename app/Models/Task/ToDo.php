@@ -21,7 +21,7 @@ class ToDo extends Model
     }
     public function employee()
     {
-        return $this->belongsTo('App\Models\Admin\Employee', 'assignedTo');
+        return $this->belongsToMany('App\Models\Admin\Employee');
     }
     public function reassignto()
     {

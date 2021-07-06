@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Leaves;
 
 use App\Http\Controllers\Controller;
+use App\Mail\LeaveApplyMail;
+use App\Mail\LeaveApproved;
+use App\Mail\LeaveRejected;
 use App\Models\Admin\AllUser;
 use App\Models\Admin\Employee;
 use App\Models\Leaves\Leave;
 use App\Models\Leaves\LeaveType;
+use App\Notifications\LeaveApply;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class LeavesController extends Controller
 {
@@ -35,7 +40,7 @@ class LeavesController extends Controller
     public function create()
     {
         $leavetype = LeaveType::all();
-        $emp_id = Employee::where('email', Auth::user()->email)->value('employee_id');
+        $emp_id = Employee::where('email', Auth::user()->email)->value('staff_id');
         // dd($emp_id);
         $d = Carbon::now();
         return view('Leave.Leaves.add', compact('leavetype', 'd', 'emp_id'));
@@ -57,8 +62,17 @@ class LeavesController extends Controller
         ]);
         $create = $request->all();
         $leave = Leave::create($create);
-        // $email = DB::table('all_users')->where('role_id', '1')->select('email')->get();
-        // Mail::to($email)->send(new LeaveApplyMail());
+        //mail
+        $email = DB::table('all_users')->where('role', '1')->select('email')->get();
+        Mail::to($email)->send(new LeaveApplyMail());
+        //notifications
+        // $employee = Employee::where('employee_id', $leave->employee_id)->first();
+        // $appliedto = AllUser::where('role', '1')->get();
+        // $thread = $employee->firstname . $employee->lastname;
+        // dd($thread);
+        // foreach ($appliedto as $user) {
+        //     $user->notify(new LeaveApply($thread));
+        // }
         if ($leave) {
             return redirect()->route('myLeaves')->with('success', 'Leave has been applied Successfully');
         } else {
@@ -76,7 +90,7 @@ class LeavesController extends Controller
     {
         $leave = Leave::findOrFail($id);
         $type = LeaveType::all();
-        $employee = Employee::where('employee_id', $leave->employee_id)->first();
+        $employee = Employee::where('staff_id', $leave->employee_id)->first();
         return view('Leave.Leaves.details', compact('leave', 'employee', 'type'));
     }
 
@@ -146,10 +160,10 @@ class LeavesController extends Controller
         $leave->checked_on = Carbon::now();
         $update = $leave->update();
         if ($update) {
-            // $applied_usr = $leave->applied_by;
-            // $assig_user = AllUser::find($applied_usr);
+            $applied_usr = $leave->applied_by;
+            $assig_user = AllUser::find($applied_usr);
 
-            // Mail::to($assig_user->email)->send(new LeaveApproveMail());
+            Mail::to($assig_user->email)->send(new LeaveApproved());
             return redirect()->route('leave.index')->with('success', 'Leave Approved Successfully !!!');
         } else {
             return redirect()->back()->with('error', 'sorry there was an error Re_Assigning Task');
@@ -164,10 +178,10 @@ class LeavesController extends Controller
         $leave->checked_on = Carbon::now();
         $update = $leave->update();
         if ($update) {
-            // $applied_usr = $leave->applied_by;
-            // $assig_user = allUser::find($applied_usr);
+            $applied_usr = $leave->applied_by;
+            $assig_user = allUser::find($applied_usr);
 
-            // Mail::to($assig_user->email)->send(new LeaveRejectMail());
+            Mail::to($assig_user->email)->send(new LeaveRejected());
             return redirect()->route('leave.index')->with('success', 'Leave Rejected Successfully !!!');
         } else {
             return redirect()->back()->with('error', 'sorry there was an error Re_Assigning Task');
