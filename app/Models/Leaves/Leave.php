@@ -3,10 +3,12 @@
 namespace App\Models\Leaves;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Leave extends Model
 {
-    protected $guarded=[];
+    use Notifiable;
+    protected $guarded = [];
     public function applied()
     {
         return $this->belongsTo('App\Models\Admin\AllUser', 'applied_by');

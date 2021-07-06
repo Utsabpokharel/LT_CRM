@@ -15,7 +15,7 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('employee_id');
+            $table->string('staff_id');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('photo')->nullable();
@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->string('pan');
             $table->string('contact_number');
             $table->string('department');
-            $table->string('title');
+            $table->integer('title');
             $table->string('level');
             $table->timestamps();
         });

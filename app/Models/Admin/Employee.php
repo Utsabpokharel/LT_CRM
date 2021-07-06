@@ -16,4 +16,8 @@ class Employee extends Model
     {
         return $this->hasMany('App\Models\Task\ToDo');
     }
+    public function title()
+    {
+        return $this->belongsToMany('App\Models\Admin\Title');
+    }
 }

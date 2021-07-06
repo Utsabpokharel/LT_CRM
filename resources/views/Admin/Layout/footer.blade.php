@@ -63,8 +63,9 @@
 <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
 <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
 <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
-$('#is_customer').change(function() {
+    $('#is_customer').change(function() {
     var is_checked = $('#is_customer').prop('checked');
     if (is_checked) {
         $('#notcustomer').addClass('d-none');
@@ -80,6 +81,14 @@ $('#is_customer').change(function() {
         });
     }
 });
+</script>
+<script srd="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js">
+</script>
+<script>
+    $(".title_id").select2({
+    placeholder: 'Please  Select...',
+    multiple: true
+  });
 </script>
 @include('sweetalert::alert')
 </body>

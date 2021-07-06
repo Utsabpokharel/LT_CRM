@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewTask;
+use App\Mail\TaskCompleted;
 use App\Models\Admin\AllUser;
 use Illuminate\Http\Request;
 use App\Models\Admin\Employee;
@@ -10,6 +12,7 @@ use App\Models\Admin\Role;
 use App\Models\Task\ToDo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ToDosController extends Controller
 {
@@ -81,14 +84,32 @@ class ToDosController extends Controller
             'task_priority' => $request->task_priority,
             'reason' => $request->reason,
         ]);
+        $data = $request->all();
+        $data['assignedTo'] = $data['assignedTo'][0];
+
         if ($request->hasFile('fileUpload')) {
             $image = $request->file('fileUpload');
             $name = "ToDo-" . time() . '.' . $image->getClientOriginalExtension();
             $image->move('Uploads/ToDoFiles/', $name);
-            $todo->fileUpload = $name;
+            $data['fileUpload'] = $name;
         }
-        $todos = $todo->save();
-        if ($todos) {
+        $todo = ToDo::create($data);
+        $todo->employee()->sync($request->assignedTo);
+        $assigned_usr = $request->assignedTo;
+        $assig_user = Employee::find($assigned_usr)->pluck('email');
+        // dd($assigned_usr);
+        // dd($request->assignedTo);
+        // dd($assig_user);
+        Mail::to($assig_user)->send(new NewTask());
+
+        // $todo->employee()->sync($request->assignedTo);
+
+        // $assigned_usr = $todo->assignedTo;
+        // $assig_user = Employee::find($assigned_usr);
+        // dd($assig_user);
+        // Mail::to($assig_user->email)->send(new NewTask());
+        // $todos = $todo->save();
+        if ($todo) {
             return redirect()->route('alltask')->with('success', 'New Task Created Successfully');
         } else {
             return redirect()->back()->with('error', 'Oops!!! some error occurred');
@@ -214,15 +235,15 @@ class ToDosController extends Controller
         $todo->completedDate = date("Y-m-d H:i:s");
         $update = $todo->update();
         if ($update) {
-            // if ($todo->ReUser_id) {
-            //     $reAssigned_usr = $todo->ReUser_id;
-            //     $assig_user = AllUser::find($reAssigned_usr);
-            //     Mail::to($assig_user->email)->send(new TaskCompleteMail($todo->title));
-            // } else {
-            //     $assigned_usr = $todo->user_id;
-            //     $assig_user = AllUser::find($assigned_usr);
-            //     Mail::to($assig_user->email)->send(new TaskCompleteMail($todo->title));
-            // }
+            if ($todo->ReUser_id) {
+                $reAssigned_usr = $todo->ReUser_id;
+                $assig_user = AllUser::find($reAssigned_usr);
+                Mail::to($assig_user->email)->send(new TaskCompleted($todo->title));
+            } else {
+                $assigned_usr = $todo->user_id;
+                $assig_user = AllUser::find($assigned_usr);
+                Mail::to($assig_user->email)->send(new TaskCompleted($todo->title));
+            }
             return redirect()->back()->with('success', 'Task Status changed to completed');
         } else {
             return redirect()->back()->with('error', 'sorry there was an error Re_Assigning Task');
@@ -288,7 +309,7 @@ class ToDosController extends Controller
         if ($update) {
             $assigned_usr = $todo->reAssignedTo;
             $assig_user = AllUser::find($assigned_usr);
-            // Mail::to($assig_user->email)->send(new TaskMail());
+            Mail::to($assig_user->email)->send(new NewTask());
             return redirect()->route('todo.index', compact('d'))->with('success', 'Re-Assigned Task Updated Successfully !!!');
         } else {
             request()->redirect()->back()->with('error', 'sorry there was an error!!!');
@@ -310,7 +331,7 @@ class ToDosController extends Controller
         if ($update) {
             $assigned_usr = $todo->reAssignedTo;
             $assig_user = AllUser::find($assigned_usr);
-            // Mail::to($assig_user->email)->send(new TaskMail());
+            Mail::to($assig_user->email)->send(new NewTask());
             return redirect()->route('todo.index', compact('d'))->with('success', 'Task Re-Assigned Successfully !!!');
         } else {
             request()->session()->flash('error', 'sorry there was an error Re-Assigning Task');

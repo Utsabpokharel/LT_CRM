@@ -90,8 +90,8 @@
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-8">
-                            <select class="form-control  @error('assignedTo') is-invalid @enderror" name="assignedTo">
-                                <option value="" disabled selected>-----Select User-----</option>
+                            <select class="form-control  title_id @error('assignedTo') is-invalid @enderror"
+                                name="assignedTo[]">
                                 @foreach($employee as $staff)
                                 <option value="{{$staff->id}}">{{$staff->firstname}} {{$staff->lastname}}</option>
                                 @endforeach

@@ -42,6 +42,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::resource('title', TitlesController::class);
     //roles
     Route::resource('role', RolesController::class);
+    //notifications
+    Route::get('/notification', [DashboardController::class, 'notifications'])->name('notification');
+    Route::get('/LeaveApplymarkasread', function () {
+        auth()->user()->unreadNotifications->where('type', 'App\Notifications\LeaveApply')->markAsRead();
+        return redirect()->route('leave.index');
+    })->name('LeaveApplymarkasread');
+    Route::get('/Usermarkasread', function () {
+        auth()->user()->unreadNotifications->where('type', 'App\Notifications\UserNotify')->markAsRead();
+        return redirect()->route('user.index');
+    })->name('Usermarkasread');
 });
 Route::group(['prefix' => 'admin', 'namespace' => 'Leaves', 'middleware' => ['auth']], function () {
     //leaves

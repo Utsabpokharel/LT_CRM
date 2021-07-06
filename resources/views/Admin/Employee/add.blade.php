@@ -36,10 +36,10 @@
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-8">
-                            <input type="text" name="employee_id" required placeholder="Enter Employee ID"
-                                id="exampleInputEmail" class="form-control  @error('employee_id') is-invalid @enderror"
-                                value="{{old('employee_id','')}}" />
-                            @error('employee_id')
+                            <input type="text" name="staff_id" required placeholder="Enter Staff ID"
+                                id="exampleInputEmail" class="form-control  @error('staff_id') is-invalid @enderror"
+                                value="{{old('staff_id','')}}" />
+                            @error('staff_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>
                             </span>
@@ -150,13 +150,15 @@
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-8">
-                            <select class="form-control  @error('title') is-invalid @enderror" name="title">
-                                <option value="" disabled selected>-----Select Title-----</option>
+                            <select name="title[]" class="form-control title_id @error('title') is-invalid @enderror"
+                                data-validation="required" value="{{old('title','')}}">
+                                <option selected>----------Select Title----------</option>
                                 @foreach($title as $title)
-                                <option value="{{$title->titlename }}">{{$title->titlename}}</option>
+                                <option value="{{$title->id}}" class="form-control">{{$title->titlename}}
+                                </option>
                                 @endforeach
-
                             </select>
+
                             @error('title')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>
