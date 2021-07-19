@@ -21,7 +21,7 @@ class ToDo extends Model
     }
     public function employee()
     {
-        return $this->belongsToMany('App\Models\Admin\Employee');
+        return $this->belongsToMany('App\Models\Admin\Employee')->withPivot('employee_id', 'to_do_id');
     }
     public function reassignto()
     {

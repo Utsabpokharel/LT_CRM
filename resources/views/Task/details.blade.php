@@ -35,7 +35,7 @@
                 <label class="control-label col-md-2">Task Description :
                 </label>
                 <div class="col-md-6">
-                    {{$todo->description}}
+                    {!! $todo->description !!}
                 </div>
             </div>
             <hr>
@@ -52,7 +52,9 @@
                 <label class="control-label col-md-2">Re-Assigned To :
                 </label>
                 <div class="col-md-6">
-                    {{$todo->employee->firstname}} {{$todo->employee->lastname}}
+                    @foreach ($todo->employee as $user)
+                    <td> {{$loop->index+1}}) {{ $user->firstname }} {{ $user->lastname }}</td> <br>
+                    @endforeach
                 </div>
             </div>
             <hr>
@@ -60,7 +62,7 @@
                 <label class="control-label col-md-2">Re-Assign Reason :
                 </label>
                 <div class="col-md-6">
-                    {{$todo->reason}}
+                    {!! $todo->reason !!}
                 </div>
             </div>
             <hr>
@@ -93,7 +95,13 @@
                 <label class="control-label col-md-2">Assigned To :
                 </label>
                 <div class="col-md-6">
-                    {{$todo->employee->firstname}} {{$todo->employee->lastname}}
+                    {{-- {{$todo->employee['firstname']}} --}}
+                    {{-- {{$todo->pivot}} --}}
+                    @foreach ($todo->employee as $user)
+                    <td> {{$loop->index+1}}) {{ $user->firstname }} {{ $user->lastname }}</td> <br>
+                    @endforeach
+
+                    {{-- {{$todo}} --}}
                 </div>
             </div>
             <hr>
@@ -151,7 +159,7 @@
                 <label class="control-label col-md-2">Remarks :
                 </label>
                 <div class="col-md-6">
-                    {{$todo->remarks}}
+                    {!! $todo->remarks !!}
                 </div>
             </div>
             <hr>

@@ -24,8 +24,9 @@
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-6">
-                            <select class="form-control col-12 input-append @error('reAssignedTo') is-invalid @enderror"
-                                required name="reAssignedTo">
+                            <select
+                                class="form-control col-12 title_id input-append @error('reAssignedTo') is-invalid @enderror"
+                                required name="reAssignedTo[]">
                                 <option class="bg-info" disabled selected>--Select Staffs--</option>
                                 @if(isset($employee))
                                 @foreach($employee as $employee_data)
@@ -63,7 +64,7 @@
                         <div class="col-md-6">
                             <textarea name="reason" required placeholder="Enter Reason for Re-Assigning"
                                 id="exampleInputText"
-                                class="form-control   @error('reason') is-invalid @enderror"> {{old('reason','')}}</textarea>
+                                class="form-control ckeditor  @error('reason') is-invalid @enderror"> {{old('reason','')}}</textarea>
                             @error('reason')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>

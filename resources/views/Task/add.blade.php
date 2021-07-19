@@ -57,7 +57,7 @@
                         </label>
                         <div class="col-md-8">
                             <textarea name="description" required placeholder="Enter Task Details" id="exampleInputText"
-                                class="form-control   @error('description') is-invalid @enderror"
+                                class="form-control ckeditor @error('description') is-invalid @enderror"
                                 value="{{old('description','')}}"> </textarea>
                             @error('description')
                             <span class="invalid-feedback" role="alert">
@@ -129,7 +129,7 @@
                         </label>
                         <div class="col-md-8">
                             <textarea name="remarks" required placeholder="Enter Task Details" id="exampleInputText"
-                                class="form-control   @error('remarks') is-invalid @enderror"
+                                class="form-control ckeditor  @error('remarks') is-invalid @enderror"
                                 value="{{old('remarks','')}}"> </textarea>
                             @error('remarks')
                             <span class="invalid-feedback" role="alert">

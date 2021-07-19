@@ -90,6 +90,10 @@
     multiple: true
   });
 </script>
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace( 'summary-ckeditor' );
+</script>
 @include('sweetalert::alert')
 </body>
 
