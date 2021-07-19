@@ -58,7 +58,7 @@
                         </label>
                         <div class="col-md-8">
                             <textarea name="description" required placeholder="Enter Task Details" id="exampleInputText"
-                                class="form-control   @error('description') is-invalid @enderror"> {{old('description',$todo->description)}}</textarea>
+                                class="form-control ckeditor @error('description') is-invalid @enderror"> {{old('description',$todo->description)}}</textarea>
                             @error('description')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>
@@ -90,8 +90,9 @@
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-8">
-                            <select class="form-control  @error('assignedTo') is-invalid @enderror" name="assignedTo">
-                                <option value="{{$todo->assignedTo}}" selected>{{$todo->assignedTo}}</option>
+                            <select class="form-control title_id @error('assignedTo') is-invalid @enderror"
+                                name="assignedTo[]">
+                                <option selected>{{$todo->assignedTo}}</option>
                                 <option class="bg-info" disabled>-----Select User-----</option>
                                 @foreach($employee as $staff)
                                 <option value="{{$staff->id}}">{{$staff->firstname}} {{$staff->lastname}}</option>
@@ -131,7 +132,7 @@
                         </label>
                         <div class="col-md-8">
                             <textarea name="remarks" required placeholder="Enter Task Details" id="exampleInputText"
-                                class="form-control   @error('remarks') is-invalid @enderror"> {{old('remarks',$todo->remarks)}}</textarea>
+                                class="form-control  ckeditor @error('remarks') is-invalid @enderror"> {{old('remarks',$todo->remarks)}}</textarea>
                             @error('remarks')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>

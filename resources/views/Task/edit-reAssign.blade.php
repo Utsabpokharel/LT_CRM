@@ -24,14 +24,14 @@
                             <span class="required text-danger"> * </span>
                         </label>
                         <div class="col-md-6">
-                            <select class="form-control col-12 input-append @error('reAssignedTo') is-invalid @enderror"
-                                required name="reAssignedTo">
-                                <option value="{{$todo->reAssignedTo}}" selected>{{$todo->reassignto->firstname}}
-                                    {{$todo->reassignto->lastname}}
-                                </option>
+                            <select
+                                class="form-control title_id col-12 input-append @error('reAssignedTo') is-invalid @enderror"
+                                required name="reAssignedTo[]">
+                                <option selected>{{$todo->reAssignedTo}}</option>
                                 <option class="bg-info" disabled>--Select Staffs--</option>
                                 @if(isset($employee))
                                 @foreach($employee as $employee_data)
+                                {{-- {{dd($employee)}} --}}
                                 <option value="{{$employee_data->id}}">{{$employee_data->firstname}}
                                     {{$employee_data->lastname}}</option>
                                 @endforeach
@@ -66,7 +66,7 @@
                         <div class="col-md-6">
                             <textarea name="reason" required placeholder="Enter Reason for Re-Assigning"
                                 id="exampleInputText"
-                                class="form-control   @error('reason') is-invalid @enderror"> {{old('reason',$todo->reason)}}</textarea>
+                                class="form-control  ckeditor @error('reason') is-invalid @enderror"> {{old('reason',$todo->reason)}}</textarea>
                             @error('reason')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{$message}}</strong>

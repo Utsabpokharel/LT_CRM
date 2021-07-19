@@ -78,7 +78,8 @@
                         </label>
                         <div class="col-md-6">
                             <textarea name="leave_reason" required placeholder="Enter Leave Reason"
-                                id="exampleInputText" class="form-control   @error('leave_reason') is-invalid @enderror"
+                                id="exampleInputText"
+                                class="form-control ckeditor @error('leave_reason') is-invalid @enderror"
                                 value="">{{old('leave_reason',$leave->leave_reason)}} </textarea>
                             @error('leave_reason')
                             <span class="invalid-feedback" role="alert">

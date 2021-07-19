@@ -76,7 +76,8 @@
                         </label>
                         <div class="col-md-6">
                             <textarea name="leave_reason" required placeholder="Enter Leave Reason"
-                                id="exampleInputText" class="form-control   @error('leave_reason') is-invalid @enderror"
+                                id="exampleInputText"
+                                class="form-control ckeditor @error('leave_reason') is-invalid @enderror"
                                 value="">{{old('leave_reason','')}} </textarea>
                             @error('leave_reason')
                             <span class="invalid-feedback" role="alert">
@@ -86,9 +87,11 @@
                         </div>
                     </div>
                     <!-- Applied By -->
-                    <input type="hidden" class="form-control" value="{{Auth::user()->id}}" required readonly name="applied_by" />
+                    <input type="hidden" class="form-control" value="{{Auth::user()->id}}" required readonly
+                        name="applied_by" />
                     <!-- Employee_id -->
-                    <input type="hidden" class="form-control" value="{{$emp_id}}" required readonly name="employee_id" />
+                    <input type="hidden" class="form-control" value="{{$emp_id}}" required readonly
+                        name="employee_id" />
                     <!-- Assigned date -->
                     <input type="hidden" class="form-control" value="{{$d}}" required readonly name="applied_on" />
                     <!-- status -->
