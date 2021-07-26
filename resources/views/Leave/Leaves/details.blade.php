@@ -36,7 +36,7 @@
                 <label class="control-label col-md-2">Leave Reason :
                 </label>
                 <div class="col-md-6">
-                    {{$leave->leave_reason}}
+                    {!!$leave->leave_reason!!}
                 </div>
             </div>
             <hr>

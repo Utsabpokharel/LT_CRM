@@ -49,7 +49,7 @@
                     <tbody class="text-center">
                         <tr>
                             <td>{{$loop->index+1}}</td>
-                            <td>{{$leaves->leave_reason}}</td>
+                            <td>{!!$leaves->leave_reason!!}</td>
                             <td>{{$leaves->applied_by}}</td>
                             <td class="valigntop">
                                 <div class="btn-group">
