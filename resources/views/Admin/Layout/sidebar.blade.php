@@ -20,7 +20,6 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider">
     @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)

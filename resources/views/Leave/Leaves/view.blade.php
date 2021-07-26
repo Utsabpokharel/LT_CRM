@@ -49,7 +49,7 @@
                     <tbody class="text-center">
                         <tr>
                             <td>{{$loop->index+1}}</td>
-                            <td><a href="{{route('leave.show',$leaves->id )}}">{{$leaves->leave_reason}}</a></td>
+                            <td><a href="{{route('leave.show',$leaves->id )}}">{!!$leaves->leave_reason!!}</a></td>
                             <td>{{$leaves->applied['username']}}</td>
                             <td class="valigntop">
                                 <div class="btn-group">

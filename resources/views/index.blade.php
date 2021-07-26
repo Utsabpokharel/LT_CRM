@@ -10,7 +10,8 @@
         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
     </div>
-
+    Welcome !!!
+    @if (Auth::user()->role ==1 || Auth::user()->role ==2 ||Auth::user()->role ==3)
     <!-- Content Row -->
     <div class="row">
         <!-- Total Users Card Example -->
@@ -278,7 +279,7 @@
                         <tbody class="text-center">
                             <tr>
                                 <th>{{$loop->index+1}}</th>
-                                <td>{{$task->title}}</td>
+                                <td><a href="{{ route('todo.show', $task->id) }}">{{$task->title}}</a></td>
                                 <td>{{$task->deadline}}</td>
                                 <td>{{$task->task_priority}}</td>
                                 <td>
@@ -342,8 +343,9 @@
                         <tbody class="text-center">
                             <tr>
                                 <th>{{$loop->index+1}}</th>
-                                <td>{{$leave->leave_reason}}</td>
-                                <td>{{$leave->applied_by}}</td>
+                                <td><a href="{{ route('leave.show', $leave->id) }}">{!! $leave->leave_reason !!}</a>
+                                </td>
+                                <td>{{$emp->firstname}}{{$emp->lastname}}</td>
                                 <td>
                                     <div class="btn-group">
                                         @if($leave->status=='1')
@@ -373,6 +375,8 @@
 
     </div>
     @endif
+    @endif
 </div>
+
 <!-- /.container-fluid -->
 @endsection

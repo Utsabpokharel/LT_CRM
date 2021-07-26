@@ -32,7 +32,13 @@ class DashboardController extends Controller
         $enquiry = Enquiry::count();
         $pending_tasks = ToDo::where('status', '0')->get()->count();
         $leave = Leave::orderBy('id', 'desc')->get();
+        // dd($leave->employee_id);
         $leaves = Leave::paginate(5);
+        // $emp = Employee::where('staff_id', $leave->employee_id);
+        $emply = Leave::orderBy('id', 'desc')->first();
+        $emp = Employee::where('staff_id', $emply->employee_id)->first();
+        // dd($emp);
+
         $pending_leaves = Leave::where([
             ['applied_by', Auth::user()->id],
             ['status', 'Pending'],
@@ -50,7 +56,8 @@ class DashboardController extends Controller
             'task',
             'pending_leaves',
             'assigned',
-            'received'
+            'received',
+            'emp'
         ));
     }
     public function notifications()
