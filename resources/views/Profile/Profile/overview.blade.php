@@ -189,7 +189,7 @@
                         </div>
                         <div class="row pItems">
                             <div class="col-md-6">Employee Id :</div>
-                            <div class="col-md-6">{{$employee->employee_id}}</div>
+                            <div class="col-md-6">{{$employee->staff_id}}</div>
                         </div>
                         <div class="row pItems">
                             <div class="col-md-6">Contact Number:</div>

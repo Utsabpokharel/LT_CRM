@@ -36,9 +36,13 @@ class DashboardController extends Controller
         $leaves = Leave::paginate(5);
         // $emp = Employee::where('staff_id', $leave->employee_id);
         $emply = Leave::orderBy('id', 'desc')->first();
-        $emp = Employee::where('staff_id', $emply->employee_id)->first();
-        // dd($emp);
-
+        // $emp = Employee::all();
+        if ($emply != []) {
+            $emp = Employee::where('staff_id', $emply->employee_id)->first();
+            // dd($emp);
+        } else {
+            $emp = [];
+        }
         $pending_leaves = Leave::where([
             ['applied_by', Auth::user()->id],
             ['status', 'Pending'],
